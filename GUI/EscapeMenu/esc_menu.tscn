@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://mfs7mt8oxgu6"]
+
+[ext_resource type="Script" path="res://GUI/EscapeMenu/esc_menu.gd" id="1_6d5ug"]
+[ext_resource type="PackedScene" uid="uid://dcvj5rtr5053o" path="res://GUI/CustomElements/ValSlider.tscn" id="2_2i38x"]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = -1
+anchor_right = 0.2
+offset_right = 141.0
+offset_bottom = 96.0
+script = ExtResource("1_6d5ug")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = -1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 515.0
+offset_bottom = 273.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+offset_right = 505.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/MarginContainer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 495.0
+offset_bottom = 253.0
+
+[node name="Video" type="VBoxContainer" parent="PanelContainer/MarginContainer/TabContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fullscreen" type="CheckButton" parent="PanelContainer/MarginContainer/TabContainer/Video"]
+offset_right = 485.0
+offset_bottom = 31.0
+text = "Fullscreen"
+
+[node name="ResolutionScale" parent="PanelContainer/MarginContainer/TabContainer/Video" instance=ExtResource("2_2i38x")]
+anchors_preset = 0
+anchor_right = 0.0
+offset_top = 35.0
+offset_right = 485.0
+offset_bottom = 65.0
+grow_horizontal = 1
+text = "Resolution Scale"
+initial_value = 100.0
+step = 5.0
+min_value = 10.0
+max_value = 200.0
+
+[node name="FOV" parent="PanelContainer/MarginContainer/TabContainer/Video" instance=ExtResource("2_2i38x")]
+anchors_preset = 0
+anchor_right = 0.0
+offset_top = 69.0
+offset_right = 485.0
+offset_bottom = 99.0
+grow_horizontal = 1
+text = "FOV"
+initial_value = 90.0
+max_value = 180.0
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/TabContainer/Video"]
+offset_top = 103.0
+offset_right = 485.0
+offset_bottom = 107.0
+
+[node name="TAA" type="CheckButton" parent="PanelContainer/MarginContainer/TabContainer/Video"]
+offset_top = 111.0
+offset_right = 485.0
+offset_bottom = 142.0
+button_pressed = true
+text = "TAA"
+
+[node name="SSAO" type="CheckButton" parent="PanelContainer/MarginContainer/TabContainer/Video"]
+offset_top = 146.0
+offset_right = 485.0
+offset_bottom = 177.0
+button_pressed = true
+text = "SSAO"
+
+[node name="SDFGI" type="CheckButton" parent="PanelContainer/MarginContainer/TabContainer/Video"]
+offset_top = 181.0
+offset_right = 485.0
+offset_bottom = 212.0
+text = "SDFGI"
+
+[node name="Keybinds" type="HBoxContainer" parent="PanelContainer/MarginContainer/TabContainer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+grow_horizontal = 2
+grow_vertical = 2

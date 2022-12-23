@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://4r6u8e6038lx"]
+
+[ext_resource type="Script" path="res://GUI/PerformanceMenu/PerformanceMonitor.gd" id="1_b7otg"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("1_b7otg")
+
+[node name="FPS" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="FrameTime" type="Label" parent="."]
+offset_top = 27.0
+offset_right = 40.0
+offset_bottom = 50.0

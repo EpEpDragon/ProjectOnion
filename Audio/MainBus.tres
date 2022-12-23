@@ -1,0 +1,20 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://d1ic70tus7u6e"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_qvcjo"]
+resource_name = "Reverb"
+wet = 0.35
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_qr2gb"]
+resource_name = "Panner"
+
+[resource]
+bus/1/name = &"WorldSound"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_qvcjo")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectPanner_qr2gb")
+bus/1/effect/1/enabled = true
