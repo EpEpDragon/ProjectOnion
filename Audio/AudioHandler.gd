@@ -63,21 +63,21 @@ func occlude_audio():
 		debug_audio_line_block.clear()
 		volume = source.VOLUME
 		
-		var tangent = (camera.global_position-source.global_position).cross(Vector3.UP).normalized()
-		var tangent_up = tangent.cross(camera.global_position-source.global_position).normalized()
+		var tangent = (player.global_position-source.global_position).cross(Vector3.UP).normalized()
+		var tangent_up = tangent.cross(player.global_position-source.global_position).normalized()
 		var check_points = [Vector3.ZERO, tangent*0.8, -tangent*0.8, tangent_up*0.8, -tangent_up*0.8]
 		for from in check_points:
 			for to in check_points:
-				if state_space.intersect_ray(PhysicsRayQueryParameters3D.create(source.global_position + from, camera.global_position + to, player.collision_mask, [player.get_rid()])):
+				if state_space.intersect_ray(PhysicsRayQueryParameters3D.create(source.global_position + from, player.global_position+Vector3.UP*0.5 + to, player.collision_mask, [player.get_rid()])):
 					volume -= 0.5
-					debug_audio_line_block.add_points(PackedVector3Array([source.global_position + from, camera.global_position + to]))
+					debug_audio_line_block.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
 				else:
-					debug_audio_line.add_points(PackedVector3Array([source.global_position + from, camera.global_position + to]))
+					debug_audio_line.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
 		source.set_volume_db(volume)
 		source.set_panning_strength(pan_strength_curve.sample(wet))
 	
-#	debug_audio_line.construct()
-#	debug_audio_line_block.construct()
+	debug_audio_line.construct()
+	debug_audio_line_block.construct()
 
 
 var sample_n = 0
@@ -98,7 +98,7 @@ func sample_room_reverb():
 			current_sample_room_size += player.global_position.distance_to(result.position)
 			current_room_bounce_vector += (result.position - player.global_position).normalized()*Vector2(result.normal.x, result.normal.z).length()
 			
-			debug_room_sample_cloud.cloud[i + REVERB_RAYS*sample_n] = result.position
+#			debug_room_sample_cloud.cloud[i + REVERB_RAYS*sample_n] = result.position
 		else:
 			current_sample_room_integrity -= 1
 			current_sample_room_size += REVERB_RAY_LENGTH
@@ -143,7 +143,7 @@ func sample_room_reverb():
 		pan_effect.set_pan(pan_correction_curve.sample(pan))
 	else:
 		pan_effect.set_pan(-pan_correction_curve.sample(-pan))
-	debug_room_sample_cloud.construct()
+#	debug_room_sample_cloud.construct()
 	debug_bounce_vector.construct()
 
 

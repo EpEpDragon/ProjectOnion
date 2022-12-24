@@ -19,7 +19,7 @@ script = ExtResource("1_qhg3m")
 mesh = SubResource("CapsuleMesh_1fbqx")
 
 [node name="Camera" type="Camera3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48205, -0.245963)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.246)
 fov = 110.0
 script = ExtResource("2_i1edq")
 
