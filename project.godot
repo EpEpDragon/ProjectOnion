@@ -23,6 +23,7 @@ buses/default_bus_layout="res://Audio/MainBus.tres"
 
 Settings="*res://Settings.gd"
 DebugDraw="*res://DebugDraw/DebugDraw.tscn"
+AudioHandler="*res://Audio/AudioHandler.tscn"
 
 [display]
 

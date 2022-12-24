@@ -33,7 +33,7 @@ albedo_color = Color(0.160784, 0.443137, 0.2, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_udpm4"]
 material = SubResource("StandardMaterial3D_m1aur")
-size = Vector2(50, 50)
+size = Vector2(200, 200)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hda8y"]
 
@@ -46,6 +46,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 radius = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmm17"]
+transparency = 1
 albedo_color = Color(1, 0.4, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_i4ffi"]
@@ -75,7 +76,7 @@ skeleton = NodePath("../..")
 shape = SubResource("WorldBoundaryShape3D_hda8y")
 
 [node name="Wall" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(-1.03352e-07, 0, -0.45348, 0, 1.74073, 0, 2.36442, 0, -1.98223e-08, 1.00802, 0.871557, -7.44898)
+transform = Transform3D(-1.03352e-07, 0, -0.45348, 0, 1.74073, 0, 2.36442, 0, -1.98223e-08, 0.91636, 0.871557, -11.6308)
 mesh = SubResource("BoxMesh_gum6w")
 skeleton = NodePath("../..")
 
@@ -85,17 +86,18 @@ skeleton = NodePath("../..")
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
 [node name="Wall5" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(-1.03352e-07, 0, -0.45348, 0, 1.74073, 0, 2.36442, 0, -1.98223e-08, 1.00802, 0.871557, -11.1639)
+transform = Transform3D(-1.03352e-07, 0, -0.45348, 0, 1.74073, 0, 2.36442, 0, -1.98223e-08, 0.91636, 0.871557, -15.3458)
 mesh = SubResource("BoxMesh_gum6w")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall5"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall5/StaticBody3D"]
+transform = Transform3D(1, 0, -8.88178e-16, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
 [node name="Wall6" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(-1.03352e-07, 0, -0.45348, 0, 1.74073, 0, 2.36442, 0, -1.98223e-08, -0.874755, 0.871557, -11.1639)
+transform = Transform3D(-1.03352e-07, 0, -0.45348, 0, 1.74073, 0, 2.36442, 0, -1.98223e-08, -0.966415, 0.871557, -15.3458)
 mesh = SubResource("BoxMesh_gum6w")
 skeleton = NodePath("../..")
 
@@ -112,6 +114,7 @@ skeleton = NodePath("../..")
 [node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall2/StaticBody3D"]
+transform = Transform3D(1, 0, 1.86265e-09, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
 [node name="Wall7" type="MeshInstance3D" parent="Geometry"]
@@ -204,8 +207,18 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall12/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
+[node name="Wall15" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-2.18957, 0, 0.401191, 0, 4.42264, 0, -4.15535, 0, -0.211399, -5.25857, 2.212, -9.82983)
+mesh = SubResource("BoxMesh_gum6w")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall15"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall15/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bjmsc")
+
 [node name="Wall4" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(-1.00279e-07, 0, -0.45348, 0, 1.74073, 0, 2.29412, 0, -1.98223e-08, -0.86926, 0.871557, -7.85388)
+transform = Transform3D(-1.00279e-07, 0, -0.45348, 0, 1.74073, 0, 2.29412, 0, -1.98223e-08, -0.96092, 0.871557, -12.0357)
 mesh = SubResource("BoxMesh_gum6w")
 skeleton = NodePath("../..")
 
@@ -305,7 +318,7 @@ shape = SubResource("SphereShape3D_puq7n")
 mesh = SubResource("SphereMesh_i4ffi")
 
 [node name="Player" parent="." node_paths=PackedStringArray("escape_menu") instance=ExtResource("1_3lej4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.370308, 0.756563, -1.44105)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15927, 0.756562, -3.38716)
 escape_menu = NodePath("../EscapeMenu")
 
 [node name="EscapeMenu" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("2_spopn")]
@@ -316,7 +329,7 @@ environment = NodePath("../WorldEnvironment")
 [node name="PerformaceDisplay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_k65b8")]
 player = NodePath("../Player")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="TopDownDebug" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(512, 512)
 anchors_preset = 3
 anchor_left = 1.0
@@ -328,64 +341,48 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="DebugViewport" type="SubViewportContainer" parent="PanelContainer" node_paths=PackedStringArray("player")]
+[node name="DebugViewport" type="SubViewportContainer" parent="TopDownDebug" node_paths=PackedStringArray("player")]
 layout_mode = 2
-offset_right = 512.0
-offset_bottom = 512.0
 stretch = true
 script = ExtResource("6_k0b0o")
 player = NodePath("../../Player")
 
-[node name="SubViewport" type="SubViewport" parent="PanelContainer/DebugViewport"]
+[node name="SubViewport" type="SubViewport" parent="TopDownDebug/DebugViewport"]
 handle_input_locally = false
 render_target_update_mode = 4
 script = ExtResource("4_csu22")
 
-[node name="DebugCam" type="Camera3D" parent="PanelContainer/DebugViewport/SubViewport"]
+[node name="DebugCam" type="Camera3D" parent="TopDownDebug/DebugViewport/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.70246, 1.69295, 0)
 projection = 1
 size = 10.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TopDownDebug"]
 layout_mode = 2
-offset_left = 511.0
-offset_right = 512.0
-offset_bottom = 131.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Voume" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="Voume" type="Label" parent="TopDownDebug/VBoxContainer"]
 layout_mode = 2
-offset_right = 1.0
-offset_bottom = 23.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="RoomSize" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="RoomSize" type="Label" parent="TopDownDebug/VBoxContainer"]
 layout_mode = 2
-offset_top = 27.0
-offset_right = 1.0
-offset_bottom = 50.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="RoomIntegrity" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="RoomIntegrity" type="Label" parent="TopDownDebug/VBoxContainer"]
 layout_mode = 2
-offset_top = 54.0
-offset_right = 1.0
-offset_bottom = 77.0
 size_flags_horizontal = 8
 
-[node name="WetLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="WetLabel" type="Label" parent="TopDownDebug/VBoxContainer"]
 layout_mode = 2
-offset_top = 81.0
-offset_right = 1.0
-offset_bottom = 104.0
 size_flags_horizontal = 8
 
-[node name="Pan" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="PanStrength" type="Label" parent="TopDownDebug/VBoxContainer"]
 layout_mode = 2
-offset_top = 108.0
-offset_right = 1.0
-offset_bottom = 131.0
+
+[node name="PanCorrection" type="Label" parent="TopDownDebug/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 8

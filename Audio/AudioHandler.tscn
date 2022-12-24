@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn3gxv6lewhny"]
+
+[ext_resource type="Script" path="res://Audio/AudioHandler.gd" id="1_l6o47"]
+
+[sub_resource type="Curve" id="Curve_j25xg"]
+_data = [Vector2(0, 0.990909), 0.0, -0.727273, 0, 1, Vector2(1, 0.263636), -2.59495, nan, 0, 1, Vector2(1, 0.263636), -2.59495, -1.13418, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_j701b"]
+_data = [Vector2(0, 0), 0.0, 4.4375, 0, 1, Vector2(0.0676056, 0.3), 4.4375, -8.49293, 1, 0, Vector2(0.158, 0.2), 0.617988, 0.950119, 0, 1, Vector2(1, 1), 0.950119, 7.35105, 1, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_rq7v2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.1), 0.2, 0.224727, 1, 0, Vector2(0.88932, 0.281818), 1.17045, 1.17045, 0, 0, Vector2(0.96699, 0.690909), 10.3115, 9.36362, 0, 1, Vector2(1, 1), 9.36362, 1.17045, 1, 0]
+point_count = 5
+
+[node name="AudioHandler" type="Node3D"]
+script = ExtResource("1_l6o47")
+pan_strength_curve = SubResource("Curve_j25xg")
+pan_correction_curve = SubResource("Curve_j701b")
+wet_correction_curve = SubResource("Curve_rq7v2")

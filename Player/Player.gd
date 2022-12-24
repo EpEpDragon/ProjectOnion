@@ -24,41 +24,41 @@ var sprint = false
 # GUI
 var in_menu = false
 
-##################### Audio ######################
-const REVERB_RAYS = 500
-const REVERB_SAMPLES = 30
-const REVERB_RAY_LENGTH = 20
-
-@onready var state_space := get_world_3d().direct_space_state
-@onready var reverb_effect : AudioEffectReverb = AudioServer.get_bus_effect(1,0)
-@onready var pan_effect : AudioEffectPanner = AudioServer.get_bus_effect(1,1)
-
-# TODO Makes some of these private
-var audio_sources : Array[AudioStreamPlayer3D]
-var volume : float = 0.0 # in dB
-var room_size_samples : PackedFloat32Array
-var room_integrity_samples : PackedFloat32Array
-var room_bounce_vector_samples : PackedVector3Array
-var average_room_size : float = 0.0 # In m
-var average_room_integrity : float = 0.0 # Fraction
-var average_room_bounce_vector := Vector3.ZERO
-var lr_room_mix : float = 0.0 # Left right balance adjustment due to geometry
-# DEBUG
-var audio_line = DebugDraw.new_lines(Vector3.ZERO, Color.GREEN)
-var audio_line_block = DebugDraw.new_lines(Vector3.ZERO, Color.RED)
-var room_sample_cloud = DebugDraw.new_point_cloud(Vector3.ZERO, 10, Color.RED)
-var bounce_vector = DebugDraw.new_spheres(Vector3.ZERO, 0.25, Color.YELLOW)
-#################################################
+###################### Audio ######################
+#const REVERB_RAYS = 500
+#const REVERB_SAMPLES = 30
+#const REVERB_RAY_LENGTH = 20
+#
+#@onready var state_space := get_world_3d().direct_space_state
+#@onready var pan_effect : AudioEffectPanner = AudioServer.get_bus_effect(1,0)
+#@onready var reverb_effect : AudioEffectReverb = AudioServer.get_bus_effect(1,1)
+#
+## TODO Makes some of these private
+#var audio_sources : Array[AudioStreamPlayer3D]
+#var volume : float = 0.0 # in dB
+#var room_size_samples : PackedFloat32Array
+#var room_integrity_samples : PackedFloat32Array
+#var room_bounce_vector_samples : PackedVector3Array
+#var average_room_size : float = 0.0 # In m
+#var average_room_integrity : float = 0.0 # Fraction
+#var average_room_bounce_vector := Vector3.ZERO
+#var lr_room_mix : float = 0.0 # Left right balance adjustment due to geometry
+## DEBUG
+#var audio_line = DebugDraw.new_lines(Vector3.ZERO, Color.GREEN)
+#var audio_line_block = DebugDraw.new_lines(Vector3.ZERO, Color.RED)
+#var room_sample_cloud = DebugDraw.new_point_cloud(Vector3.ZERO, 10, Color.RED)
+#var bounce_vector = DebugDraw.new_spheres(Vector3.ZERO, 0.25, Color.YELLOW)
+##################################################
 
 var free_cam = false
 
 func _ready():
-	room_size_samples.resize(REVERB_SAMPLES)
-	room_integrity_samples.resize(REVERB_SAMPLES)
-	room_bounce_vector_samples.resize(REVERB_SAMPLES)
-	room_sample_cloud.cloud.resize(REVERB_SAMPLES*REVERB_RAYS)
-	bounce_vector.add_sphere(Vector3.ZERO)
-	bounce_vector.construct()
+#	room_size_samples.resize(REVERB_SAMPLES)
+#	room_integrity_samples.resize(REVERB_SAMPLES)
+#	room_bounce_vector_samples.resize(REVERB_SAMPLES)
+#	room_sample_cloud.cloud.resize(REVERB_SAMPLES*REVERB_RAYS)
+#	bounce_vector.add_sphere(Vector3.ZERO)
+#	bounce_vector.construct()
 	
 	print("PHYSICS_FPS: ", PHYSICS_FPS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -97,8 +97,8 @@ func _input(event):
 func _physics_process(delta):
 	if !free_cam:
 		character_movement(delta)
-		occlude_audio()
-		sample_room_reverb()
+#		occlude_audio()
+#		sample_room_reverb()
 
 
 func _process(delta):
@@ -157,102 +157,102 @@ func free_cam_movement(delta):
 	
 	camera.position += camera.transform.basis * input_dir * MAX_SPEED * delta
 
-
-func occlude_audio():
-	for source in audio_sources:
-		audio_line.clear()
-		audio_line_block.clear()
-		volume = source.VOLUME
-		
-		var tangent = (camera.global_position-source.global_position).cross(Vector3.UP).normalized()
-		var tangent_up = tangent.cross(camera.global_position-source.global_position).normalized()
-		var check_points = [Vector3.ZERO, tangent*0.8, -tangent*0.8, tangent_up*0.8, -tangent_up*0.8]
-		for from in check_points:
-			for to in check_points:
-				if state_space.intersect_ray(PhysicsRayQueryParameters3D.create(source.global_position + from, camera.global_position + to, collision_mask, [get_rid()])):
-					volume -= 0.5
-					audio_line_block.add_points(PackedVector3Array([source.global_position + from, camera.global_position + to]))
-				else:
-					audio_line.add_points(PackedVector3Array([source.global_position + from, camera.global_position + to]))
-		source.set_volume_db(volume)
-	
-	audio_line.construct()
-	audio_line_block.construct()
-
-
-var sample_n = 0
-func sample_room_reverb():
-	# Room size estimate based on this frame's batch of rays 
-	var current_sample_room_size : float = 0.0
-	# Room integrity estimate based on this frame's batch of rays
-	var current_sample_room_integrity : float = REVERB_RAYS
-	# Ray cast points to use this frame
-	var points := rand_points_on_sphere(REVERB_RAYS)
-	# Vector of most audio bounce
-	var current_room_bounce_vector := Vector3.ZERO
-	
-	# Cast rays to sample room size and integrity
-	for i in REVERB_RAYS:
-		var result = state_space.intersect_ray(PhysicsRayQueryParameters3D.create(global_position, points[i]*REVERB_RAY_LENGTH + global_position))
-		if result:
-			current_sample_room_size += global_position.distance_to(result.position)
-			current_room_bounce_vector += inverse_linear(result.position - global_position)*Vector2(result.normal.x, result.normal.z).length()
-			
-			room_sample_cloud.cloud[i + REVERB_RAYS*sample_n] = result.position
-		else:
-			current_sample_room_integrity -= 1
-			current_sample_room_size += REVERB_RAY_LENGTH
-	current_sample_room_size /= REVERB_RAYS
-	current_room_bounce_vector /= REVERB_RAYS
-	current_sample_room_integrity /= REVERB_RAYS
-	
-	# Add current frame's samples to running averages
-	room_size_samples[sample_n] = current_sample_room_size
-	room_integrity_samples[sample_n] = current_sample_room_integrity
-	room_bounce_vector_samples[sample_n] = current_room_bounce_vector
-	sample_n = wrapi(sample_n + 1, 0, REVERB_SAMPLES)
-	
-	# Calculate averages
-	average_room_size = 0
-	average_room_integrity = 0
-	for i in REVERB_SAMPLES:
-		average_room_size += room_size_samples[i]
-		average_room_integrity += room_integrity_samples[i]
-		average_room_bounce_vector += room_bounce_vector_samples[i]
-	average_room_size /= REVERB_SAMPLES
-	average_room_integrity /= REVERB_SAMPLES
-	average_room_bounce_vector /= REVERB_SAMPLES
-	
-	bounce_vector.position = Vector3(average_room_bounce_vector.x, 0, average_room_bounce_vector.z) + global_position
-	
-	
-	reverb_effect.set_room_size(average_room_size/REVERB_RAY_LENGTH)
-	# TODO Scale wet to sound right
-	reverb_effect.set_wet(pow(100,average_room_integrity-1))
-	pan_effect.set_pan(basis.x.dot(average_room_bounce_vector/REVERB_RAY_LENGTH)*2)
-	
-	room_sample_cloud.construct()
-	bounce_vector.construct()
+#
+#func occlude_audio():
+#	for source in audio_sources:
+#		audio_line.clear()
+#		audio_line_block.clear()
+#		volume = source.VOLUME
+#
+#		var tangent = (camera.global_position-source.global_position).cross(Vector3.UP).normalized()
+#		var tangent_up = tangent.cross(camera.global_position-source.global_position).normalized()
+#		var check_points = [Vector3.ZERO, tangent*0.8, -tangent*0.8, tangent_up*0.8, -tangent_up*0.8]
+#		for from in check_points:
+#			for to in check_points:
+#				if state_space.intersect_ray(PhysicsRayQueryParameters3D.create(source.global_position + from, camera.global_position + to, collision_mask, [get_rid()])):
+#					volume -= 0.5
+#					audio_line_block.add_points(PackedVector3Array([source.global_position + from, camera.global_position + to]))
+#				else:
+#					audio_line.add_points(PackedVector3Array([source.global_position + from, camera.global_position + to]))
+#		source.set_volume_db(volume)
+#
+#	audio_line.construct()
+#	audio_line_block.construct()
 
 
-func rand_points_on_sphere(n : int) -> PackedVector3Array:
-	var points := PackedVector3Array([])
-	points.resize(n)
-	for i in range(n):
-		while points[i] == Vector3.ZERO:
-			points[i] = Vector3(randi()-0x80000000, randi()-0x80000000, randi()-0x80000000).normalized()
-			if points[i] == Vector3.ZERO:
-				print("ZERO VECTOR")
-	return points
+#var sample_n = 0
+#func sample_room_reverb():
+#	# Room size estimate based on this frame's batch of rays 
+#	var current_sample_room_size : float = 0.0
+#	# Room integrity estimate based on this frame's batch of rays
+#	var current_sample_room_integrity : float = REVERB_RAYS
+#	# Ray cast points to use this frame
+#	var points := rand_points_on_sphere(REVERB_RAYS)
+#	# Vector of most audio bounce
+#	var current_room_bounce_vector := Vector3.ZERO
+#
+#	# Cast rays to sample room size and integrity
+#	for i in REVERB_RAYS:
+#		var result = state_space.intersect_ray(PhysicsRayQueryParameters3D.create(global_position, points[i]*REVERB_RAY_LENGTH + global_position))
+#		if result:
+#			current_sample_room_size += global_position.distance_to(result.position)
+#			current_room_bounce_vector += inverse_linear(result.position - global_position)*Vector2(result.normal.x, result.normal.z).length()
+#
+#			room_sample_cloud.cloud[i + REVERB_RAYS*sample_n] = result.position
+#		else:
+#			current_sample_room_integrity -= 1
+#			current_sample_room_size += REVERB_RAY_LENGTH
+#	current_sample_room_size /= REVERB_RAYS
+#	current_room_bounce_vector /= REVERB_RAYS
+#	current_sample_room_integrity /= REVERB_RAYS
+#
+#	# Add current frame's samples to running averages
+#	room_size_samples[sample_n] = current_sample_room_size
+#	room_integrity_samples[sample_n] = current_sample_room_integrity
+#	room_bounce_vector_samples[sample_n] = current_room_bounce_vector
+#	sample_n = wrapi(sample_n + 1, 0, REVERB_SAMPLES)
+#
+#	# Calculate averages
+#	average_room_size = 0
+#	average_room_integrity = 0
+#	for i in REVERB_SAMPLES:
+#		average_room_size += room_size_samples[i]
+#		average_room_integrity += room_integrity_samples[i]
+#		average_room_bounce_vector += room_bounce_vector_samples[i]
+#	average_room_size /= REVERB_SAMPLES
+#	average_room_integrity /= REVERB_SAMPLES
+#	average_room_bounce_vector /= REVERB_SAMPLES
+#
+#	bounce_vector.position = Vector3(average_room_bounce_vector.x, 0, average_room_bounce_vector.z) + global_position
+#
+#
+#	reverb_effect.set_room_size(average_room_size/REVERB_RAY_LENGTH)
+#	# TODO Scale wet to sound right
+#	reverb_effect.set_wet(pow(100,average_room_integrity-1))
+#	pan_effect.set_pan(basis.x.dot(average_room_bounce_vector/REVERB_RAY_LENGTH)*2)
+#
+#	room_sample_cloud.construct()
+#	bounce_vector.construct()
+
+#
+#func rand_points_on_sphere(n : int) -> PackedVector3Array:
+#	var points := PackedVector3Array([])
+#	points.resize(n)
+#	for i in range(n):
+#		while points[i] == Vector3.ZERO:
+#			points[i] = Vector3(randi()-0x80000000, randi()-0x80000000, randi()-0x80000000).normalized()
+#			if points[i] == Vector3.ZERO:
+#				print("ZERO VECTOR")
+#	return points
 
 
-func inverse_linear(vec : Vector3) -> Vector3:
-	for i in 3:
-		if vec[i] >= 0:
-			vec[i] = (-vec[i] + REVERB_RAY_LENGTH)
-		else:
-			vec[i] = (-vec[i] - REVERB_RAY_LENGTH)
-	return vec
+#func inverse_linear(vec : Vector3) -> Vector3:
+#	for i in 3:
+#		if vec[i] >= 0:
+#			vec[i] = (-vec[i] + REVERB_RAY_LENGTH)
+#		else:
+#			vec[i] = (-vec[i] - REVERB_RAY_LENGTH)
+#	return vec
 
 
 func fix_jitter(delta) -> void:
@@ -269,6 +269,6 @@ func fix_jitter(delta) -> void:
 func get_camera():
 	return camera
 
-# TODO Make this better
-func add_audio_source(source : AudioStreamPlayer3D):
-	audio_sources.append(source)
+## TODO Make this better
+#func add_audio_source(source : AudioStreamPlayer3D):
+#	audio_sources.append(source)

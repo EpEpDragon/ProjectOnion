@@ -64,6 +64,8 @@ class Spheres extends MeshInstance3D:
 		_radius = radius
 		mat.albedo_color = color
 		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.set_transparency(true)
+		mat.set_cull_mode(BaseMaterial3D.CULL_DISABLED)
 		cast_shadow = false
 	
 	func clear() : positions.clear()
