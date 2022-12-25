@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://d1vynnsgxqrfn"]
 
-[ext_resource type="PackedScene" uid="uid://cb3hokrgcfqus" path="res://Player/Player.tscn" id="1_3lej4"]
+[ext_resource type="PackedScene" uid="uid://vfep1hrbvdrv" path="res://Player/Player.tscn" id="1_3lej4"]
 [ext_resource type="AudioStream" uid="uid://cvj0xpoaved8l" path="res://Audio/genji_11_shikibu-genji_11_shikibu.mp3" id="1_x5lnq"]
 [ext_resource type="PackedScene" uid="uid://mfs7mt8oxgu6" path="res://GUI/EscapeMenu/esc_menu.tscn" id="2_spopn"]
 [ext_resource type="Script" path="res://Audio/AudioSource.gd" id="2_uwn7e"]
@@ -25,14 +25,13 @@ ambient_light_color = Color(0.403922, 0.403922, 0.403922, 1)
 ambient_light_sky_contribution = 0.2
 tonemap_mode = 1
 ssao_enabled = true
-sdfgi_use_occlusion = true
 sdfgi_y_scale = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1aur"]
-albedo_color = Color(0.160784, 0.443137, 0.2, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cd32"]
+albedo_color = Color(0.305882, 0.313726, 0.305882, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_udpm4"]
-material = SubResource("StandardMaterial3D_m1aur")
+material = SubResource("StandardMaterial3D_2cd32")
 size = Vector2(200, 200)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hda8y"]
@@ -54,11 +53,12 @@ material = SubResource("StandardMaterial3D_xmm17")
 radius = 0.25
 height = 0.5
 
-[node name="Node3D" type="Node3D"]
+[node name="World" type="Node3D"]
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.876861, -0.214642, 0.430167, -0.257489, 0.545936, 0.797279, -0.405973, -0.809866, 0.423442, 0, 0, 0)
 shadow_enabled = true
+shadow_normal_bias = 2.245
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5xrla")
@@ -301,12 +301,13 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Pillar7/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("player")]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0161661, 0.63459, -4.76526)
 stream = ExtResource("1_x5lnq")
+volume_db = -12.0
+autoplay = true
 bus = &"WorldSound"
 script = ExtResource("2_uwn7e")
-player = NodePath("../Player")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="AudioStreamPlayer3D"]
 

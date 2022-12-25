@@ -29,7 +29,6 @@ func _ready():
 	print("PHYSICS_FPS: ", PHYSICS_FPS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and !in_menu:
 		if !free_cam:
@@ -92,9 +91,11 @@ func character_movement(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	target_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if target_direction:
+		camera.walk = true
 		velocity.x += target_direction.x * acceleration
 		velocity.z += target_direction.z * acceleration
 	else:
+		camera.walk = false
 		velocity.x = move_toward(velocity.x, 0, acceleration)
 		velocity.z = move_toward(velocity.z, 0, acceleration)
 	

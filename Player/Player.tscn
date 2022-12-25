@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cb3hokrgcfqus"]
+[gd_scene load_steps=7 format=3 uid="uid://vfep1hrbvdrv"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qhg3m"]
-[ext_resource type="Script" path="res://Player/Camera.gd" id="2_i1edq"]
+[ext_resource type="Script" path="res://Player/PlayerCamera.gd" id="2_k2ohh"]
+[ext_resource type="AudioStream" uid="uid://bfa1liqfsbol4" path="res://Audio/Footstep1.wav" id="3_cu80b"]
+[ext_resource type="Script" path="res://Player/AudioFootsteps.gd" id="4_5xkh7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1fbqx"]
 radius = 0.303
@@ -21,7 +23,14 @@ mesh = SubResource("CapsuleMesh_1fbqx")
 [node name="Camera" type="Camera3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.246)
 fov = 110.0
-script = ExtResource("2_i1edq")
+script = ExtResource("2_k2ohh")
+
+[node name="AudioFootsteps" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource("3_cu80b")
+volume_db = -24.0
+max_polyphony = 10
+bus = &"WorldSound"
+script = ExtResource("4_5xkh7")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_m4lv1")

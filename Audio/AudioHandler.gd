@@ -4,8 +4,8 @@ extends Node3D
 @export var pan_correction_curve : Curve
 @export var wet_correction_curve : Curve
 
-@onready var player = $"../Node3D/Player"
-@onready var camera = $"../Node3D/Player/Body/Camera" #player.get_camera()
+@onready var player = $"/root/World/Player"
+@onready var camera = $"/root/World/Player/Body/Camera" #player.get_camera()
 
 ##################### Audio ######################
 const REVERB_RAYS = 500
@@ -59,8 +59,8 @@ func _process(_delta):
 
 func occlude_audio():
 	for source in audio_sources:
-		debug_audio_line.clear()
-		debug_audio_line_block.clear()
+#		debug_audio_line.clear()
+#		debug_audio_line_block.clear()
 		volume = source.VOLUME
 		
 		var tangent = (player.global_position-source.global_position).cross(Vector3.UP).normalized()
@@ -70,14 +70,14 @@ func occlude_audio():
 			for to in check_points:
 				if state_space.intersect_ray(PhysicsRayQueryParameters3D.create(source.global_position + from, player.global_position+Vector3.UP*0.5 + to, player.collision_mask, [player.get_rid()])):
 					volume -= 0.5
-					debug_audio_line_block.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
-				else:
-					debug_audio_line.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
+#					debug_audio_line_block.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
+#				else:
+#					debug_audio_line.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
 		source.set_volume_db(volume)
 		source.set_panning_strength(pan_strength_curve.sample(wet))
 	
-	debug_audio_line.construct()
-	debug_audio_line_block.construct()
+#	debug_audio_line.construct()
+#	debug_audio_line_block.construct()
 
 
 var sample_n = 0

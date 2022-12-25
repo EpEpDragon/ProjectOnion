@@ -1,9 +1,8 @@
 extends AudioStreamPlayer3D
 
-const VOLUME = 0
+@onready var VOLUME = volume_db
 
-@export var player : CharacterBody3D
+#@onready var player = $"/root/World/Player"
 
 func _ready():
 	AudioHandler.add_audio_source(self)
-	play(19)
