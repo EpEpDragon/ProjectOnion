@@ -304,6 +304,7 @@ shape = SubResource("ConvexPolygonShape3D_bjmsc")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0161661, 0.63459, -4.76526)
 stream = ExtResource("1_x5lnq")
+attenuation_model = 1
 volume_db = -12.0
 autoplay = true
 bus = &"WorldSound"
@@ -319,7 +320,7 @@ shape = SubResource("SphereShape3D_puq7n")
 mesh = SubResource("SphereMesh_i4ffi")
 
 [node name="Player" parent="." node_paths=PackedStringArray("escape_menu") instance=ExtResource("1_3lej4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15927, 0.756562, -3.38716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0718427, 0.756561, 1.3011)
 escape_menu = NodePath("../EscapeMenu")
 
 [node name="EscapeMenu" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("2_spopn")]
@@ -331,6 +332,7 @@ environment = NodePath("../WorldEnvironment")
 player = NodePath("../Player")
 
 [node name="TopDownDebug" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(512, 512)
 anchors_preset = 3
 anchor_left = 1.0
@@ -350,7 +352,7 @@ player = NodePath("../../Player")
 
 [node name="SubViewport" type="SubViewport" parent="TopDownDebug/DebugViewport"]
 handle_input_locally = false
-render_target_update_mode = 4
+render_target_update_mode = 0
 script = ExtResource("4_csu22")
 
 [node name="DebugCam" type="Camera3D" parent="TopDownDebug/DebugViewport/SubViewport"]

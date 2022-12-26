@@ -28,11 +28,11 @@ var wet : float = 0.0 # Reverb fraction heard
 var average_room_bounce_vector := Vector3.ZERO
 var lr_room_mix : float = 0.0 # Left right balance adjustment due to geometry
 # DEBUG
-var debug_audio_line = DebugDraw.new_lines(Vector3.ZERO, Color.GREEN)
-var debug_audio_line_block = DebugDraw.new_lines(Vector3.ZERO, Color.RED)
-var debug_room_sample_cloud = DebugDraw.new_point_cloud(Vector3.ZERO, 10, Color.RED)
-var debug_room_size
-var debug_bounce_vector
+#var debug_audio_line = DebugDraw.new_lines(Vector3.ZERO, Color.GREEN)
+#var debug_audio_line_block = DebugDraw.new_lines(Vector3.ZERO, Color.RED)
+#var debug_room_sample_cloud = DebugDraw.new_point_cloud(Vector3.ZERO, 10, Color.RED)
+#var debug_room_size
+#var debug_bounce_vector
 
 #################################################
 
@@ -44,13 +44,15 @@ func _ready():
 	
 	var yellow_transparent = Color.YELLOW
 	yellow_transparent.a = 0.2
-	debug_room_size = DebugDraw.new_spheres(Vector3.ZERO, 1.0, yellow_transparent)
-	debug_bounce_vector = DebugDraw.new_spheres(Vector3.ZERO, 0.25, yellow_transparent)
-	debug_room_sample_cloud.cloud.resize(REVERB_SAMPLES*REVERB_RAYS)
-	debug_room_size.add_sphere(Vector3.ZERO)
-	debug_bounce_vector.add_sphere(Vector3.ZERO)
-	debug_bounce_vector.construct()
-	debug_room_size.construct()
+	
+	# DEBUG
+#	debug_room_size = DebugDraw.new_spheres(Vector3.ZERO, 1.0, yellow_transparent)
+#	debug_bounce_vector = DebugDraw.new_spheres(Vector3.ZERO, 0.25, yellow_transparent)
+#	debug_room_sample_cloud.cloud.resize(REVERB_SAMPLES*REVERB_RAYS)
+#	debug_room_size.add_sphere(Vector3.ZERO)
+#	debug_bounce_vector.add_sphere(Vector3.ZERO)
+#	debug_bounce_vector.construct()
+#	debug_room_size.construct()
 
 
 func _process(_delta):
@@ -70,12 +72,14 @@ func occlude_audio():
 			for to in check_points:
 				if state_space.intersect_ray(PhysicsRayQueryParameters3D.create(source.global_position + from, player.global_position+Vector3.UP*0.5 + to, player.collision_mask, [player.get_rid()])):
 					volume -= 0.5
+				# DEBUG
 #					debug_audio_line_block.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
 #				else:
 #					debug_audio_line.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
 		source.set_volume_db(volume)
 		source.set_panning_strength(pan_strength_curve.sample(wet))
 	
+	# DEBUG
 #	debug_audio_line.construct()
 #	debug_audio_line_block.construct()
 
@@ -98,6 +102,7 @@ func sample_room_reverb():
 			current_sample_room_size += player.global_position.distance_to(result.position)
 			current_room_bounce_vector += (result.position - player.global_position).normalized()*Vector2(result.normal.x, result.normal.z).length()
 			
+			# DEBUG
 #			debug_room_sample_cloud.cloud[i + REVERB_RAYS*sample_n] = result.position
 		else:
 			current_sample_room_integrity -= 1
@@ -125,11 +130,11 @@ func sample_room_reverb():
 	average_room_bounce_vector /= REVERB_SAMPLES
 	
 	# DEBUG
-	debug_room_size.mesh.set_radius(average_room_size)
-	debug_room_size.mesh.set_height(2*average_room_size)
-	debug_room_size.mat.albedo_color = Color(1,0,0,0.5).lerp(Color(0,0,1,0.1), average_room_size/REVERB_RAY_LENGTH)
-	debug_room_size.position = player.global_position
-	debug_bounce_vector.position = Vector3(average_room_bounce_vector.x, 0, average_room_bounce_vector.z)*10 + player.global_position
+#	debug_room_size.mesh.set_radius(average_room_size)
+#	debug_room_size.mesh.set_height(2*average_room_size)
+#	debug_room_size.mat.albedo_color = Color(1,0,0,0.5).lerp(Color(0,0,1,0.1), average_room_size/REVERB_RAY_LENGTH)
+#	debug_room_size.position = player.global_position
+#	debug_bounce_vector.position = Vector3(average_room_bounce_vector.x, 0, average_room_bounce_vector.z)*10 + player.global_position
 	
 	reverb_effect.set_room_size(average_room_size/REVERB_RAY_LENGTH)
 	# TODO Scale wet to sound right
@@ -143,8 +148,10 @@ func sample_room_reverb():
 		pan_effect.set_pan(pan_correction_curve.sample(pan))
 	else:
 		pan_effect.set_pan(-pan_correction_curve.sample(-pan))
+	
+	# DEBUG
 #	debug_room_sample_cloud.construct()
-	debug_bounce_vector.construct()
+#	debug_bounce_vector.construct()
 
 
 func rand_points_on_sphere(n : int) -> PackedVector3Array:
