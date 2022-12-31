@@ -1,7 +1,7 @@
 extends Camera3D
 
-const BOB_DISTANCE = 0.04
-const BOB_TIME = 0.25
+const BOB_DISTANCE = 0.03
+const BOB_TIME = 1.0
 const RUN_MULTIPLE = 1.3
 
 @onready var player := $"../../"
@@ -31,23 +31,18 @@ func _process(_delta):
 func tween_setup():
 	walk_tween.stop()
 	stop_tween.stop()
-	walk_tween.set_trans(Tween.TRANS_SINE)
-	walk_tween.set_ease(Tween.EASE_IN_OUT)
-	# Camera bob loop
 	walk_tween.set_loops()
-	walk_tween.set_parallel()
-	walk_tween.tween_property(self, "position:x", base_position.x + BOB_DISTANCE, BOB_TIME)
-	walk_tween.tween_property(self, "position:y", base_position.y - BOB_DISTANCE, BOB_TIME)
-	walk_tween.tween_callback(audio_footsteps.play)
-	walk_tween.chain()
-	walk_tween.tween_property(self, "position:y", base_position.y + BOB_DISTANCE, BOB_TIME/2)
-	walk_tween.chain()
-	walk_tween.tween_property(self, "position:x", base_position.x - BOB_DISTANCE, BOB_TIME)
-	walk_tween.tween_property(self, "position:y", base_position.y - BOB_DISTANCE, BOB_TIME)
-	walk_tween.tween_callback(audio_footsteps.play)
-	walk_tween.chain()
-	walk_tween.tween_property(self, "position:y", base_position.y + BOB_DISTANCE, BOB_TIME/2)
+	walk_tween.tween_method(bob.bind(BOB_DISTANCE*0.7,BOB_DISTANCE),0.0,PI/2,BOB_TIME/4)
+	walk_tween.tween_callback(audio_footsteps.play_stream)
+	walk_tween.tween_method(bob.bind(BOB_DISTANCE*0.7,BOB_DISTANCE),PI/2,PI*3/2,BOB_TIME/2)
+	walk_tween.tween_callback(audio_footsteps.play_stream)
+	walk_tween.tween_method(bob.bind(BOB_DISTANCE*0.7,BOB_DISTANCE),PI*3/2,2*PI,BOB_TIME/4)
 	
 	# Return to center
 	stop_tween.set_loops()
 	stop_tween.tween_property(self, "position", base_position, BOB_TIME)
+
+func bob(t : float, x_max : float, y_max : float):
+	var target_position = base_position + Vector3(x_max*sin(t), y_max*sin(2*t), 0)
+#	position = lerp(position, target_position, 0.5)
+	position = target_position

@@ -1,10 +1,10 @@
-extends AudioStreamPlayer3D
+extends AudioSource
 @onready var player = $"../../"
-func play(from : float = 0.0) -> void:
-	if player.sprint:
-		set_pitch_scale(randf_range(0.7,0.8))
-	else:
-		set_pitch_scale(randf_range(0.5,0.6))
-	
-	play(from)
+
+func play_stream(stream : int = 0) -> void:
+#	if player.sprint:
+#		self.pitch_scale = (randf_range(0.9,1.1))
+#	else:
+	self.pitch_scale = (randf_range(0.9,1.2))
+	super.play_stream(randi()%4)
 

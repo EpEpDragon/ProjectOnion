@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://vfep1hrbvdrv"]
+[gd_scene load_steps=9 format=3 uid="uid://vfep1hrbvdrv"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qhg3m"]
 [ext_resource type="Script" path="res://Player/PlayerCamera.gd" id="2_k2ohh"]
-[ext_resource type="AudioStream" uid="uid://bfa1liqfsbol4" path="res://Audio/Footstep1.wav" id="3_cu80b"]
+[ext_resource type="AudioStream" uid="uid://1cjn5k1erxeq" path="res://Audio/Footstep-01.wav" id="4_5dy3a"]
 [ext_resource type="Script" path="res://Player/AudioFootsteps.gd" id="4_5xkh7"]
+[ext_resource type="AudioStream" uid="uid://bhxh4hviibe86" path="res://Audio/Footstep-02.wav" id="5_bviww"]
+[ext_resource type="AudioStream" uid="uid://dc7vpm6olvh8b" path="res://Audio/Footstep-04.wav" id="7_coepo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1fbqx"]
 radius = 0.303
@@ -26,13 +28,9 @@ fov = 110.0
 script = ExtResource("2_k2ohh")
 
 [node name="AudioFootsteps" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource("3_cu80b")
-attenuation_model = 2
-volume_db = -10.0
-pitch_scale = 0.5
-max_polyphony = 10
 bus = &"WorldSound"
 script = ExtResource("4_5xkh7")
+audio_streams = [ExtResource("4_5dy3a"), ExtResource("5_bviww"), ExtResource("5_bviww"), ExtResource("7_coepo")]
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_m4lv1")

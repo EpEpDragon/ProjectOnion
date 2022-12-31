@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "AudioStreamPlayer3D",
+"class": &"AudioSource",
+"language": &"GDScript",
+"path": "res://Audio/AudioSource.gd"
+}]
+_global_script_class_icons={
+"AudioSource": ""
+}
+
 [application]
 
 config/name="Project Onion"

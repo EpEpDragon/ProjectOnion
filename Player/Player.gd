@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-const MAX_SPEED = 3.0
-const MAX_SPEED_SPRINT = 6.0
+const MAX_SPEED = 2.5
+const MAX_SPEED_SPRINT = 4
 const ACCELERATION = 50.0
 const ACCELERATION_AIR = 3.0
 const JUMP_VELOCITY = 4.5

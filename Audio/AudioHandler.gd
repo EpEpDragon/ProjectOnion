@@ -76,8 +76,8 @@ func occlude_audio():
 #					debug_audio_line_block.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
 #				else:
 #					debug_audio_line.add_points(PackedVector3Array([source.global_position + from, player.global_position+Vector3.UP*0.5 + to]))
-		source.set_volume_db(volume)
-		source.set_panning_strength(pan_strength_curve.sample(wet))
+		source.volume_db = volume
+		source.panning_strength = pan_strength_curve.sample(wet)
 	
 	# DEBUG
 #	debug_audio_line.construct()
