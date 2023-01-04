@@ -305,13 +305,9 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Pillar7/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
-[node name="Player" parent="." node_paths=PackedStringArray("escape_menu") instance=ExtResource("1_3lej4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0718427, 0.756561, 1.3011)
-escape_menu = NodePath("../EscapeMenu")
-
-[node name="EscapeMenu" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("2_spopn")]
+[node name="EscapeMenu" parent="." node_paths=PackedStringArray("player", "environment") instance=ExtResource("2_spopn")]
 visible = false
-player_path = NodePath("../Player")
+player = NodePath("../Player")
 environment = NodePath("../WorldEnvironment")
 
 [node name="PerformaceDisplay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_k65b8")]
@@ -377,3 +373,6 @@ bus = &"WorldSound"
 script = SubResource("GDScript_t1dgv")
 audio_streams = [ExtResource("2_wfski")]
 use_occlusion = true
+
+[node name="Player" parent="." node_paths=PackedStringArray("escape_menu") instance=ExtResource("1_3lej4")]
+escape_menu = NodePath("../EscapeMenu")

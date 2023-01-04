@@ -1,28 +1,31 @@
-extends Camera3D
+extends MeshInstance3D
 
 const BOB_DISTANCE = 0.03
 const BOB_TIME = 0.95
 const RUN_MULTIPLE = 1.3
 
-@onready var player := $"../../"
-@onready var audio_footsteps := $"../AudioFootsteps"
+var walk = false
+var local_pos = position
+@onready var gun := $Camera/Gun
+@onready var player := $"../"
+@onready var audio_footsteps := $"AudioFootsteps"
 @onready var walk_tween := create_tween()
 @onready var stop_tween := create_tween()
 @onready var base_position = position
 
-var walk = false
+var just_walking = false
 
 func _ready():
 	tween_setup()
-	set_fov(Settings.fov)
 
-var just_walking = false
+# TODO Make this not in process if possible
 func _process(_delta):
 	if player.is_sprinting():
 		walk_tween.set_speed_scale(RUN_MULTIPLE)
 	else:
 		walk_tween.set_speed_scale(1)
 	if walk:
+		stop_tween.stop()
 		walk_tween.play()
 		just_walking = true
 	elif just_walking:
@@ -42,11 +45,11 @@ func tween_setup():
 	
 	# Return to center
 	stop_tween.set_loops()
-	stop_tween.tween_property(self, "position", base_position, BOB_TIME/3)
+	stop_tween.tween_property(self, "local_pos", base_position, BOB_TIME/3)
+	stop_tween.parallel().tween_property(gun, "target_bob_position", Vector3.ZERO, BOB_TIME/3)
 	stop_tween.tween_callback(audio_footsteps.play_stream)
 	stop_tween.tween_callback(stop_tween.stop)
 
 func bob(t : float, x_max : float, y_max : float):
-	var target_position = base_position + Vector3(x_max*sin(t), y_max*sin(2*t), 0)
-#	position = lerp(position, target_position, 0.5)
-	position = target_position
+	local_pos = base_position + Vector3(x_max*sin(t), y_max*sin(2*t), 0)
+	gun.target_bob_position = Vector3(x_max*sin(t), y_max*sin(2*t), 0)*0.2

@@ -3,8 +3,7 @@ extends Control
 const MAX_RES = Vector2i(3440, 1440)
 
 # Player ref
-@export_node_path(CharacterBody3D) var player_path
-@onready var player = get_node(player_path)
+@export var player : CharacterBody3D
 # Environment ref
 @export var environment : WorldEnvironment
 
