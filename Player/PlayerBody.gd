@@ -18,7 +18,7 @@ var just_walking = false
 func _ready():
 	tween_setup()
 
-# TODO Make this not in process if possible
+# TODO Make walk and sprinting checks not in process
 func _process(_delta):
 	if player.is_sprinting():
 		walk_tween.set_speed_scale(RUN_MULTIPLE)

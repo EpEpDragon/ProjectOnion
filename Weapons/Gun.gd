@@ -10,10 +10,13 @@ var shooting := false :
 				shot_timer.start(shot_cooldown)
 
 var target_rotation = Vector3.ZERO
+var base_rotation = Vector3.ZERO
 var target_bob_position = Vector3.ZERO
+var is_sight_in = false
 
+# TODO Fix all this variable barf
 @export var sight_time := 0.2
-@export var shot_cooldown := 0.1
+@export var shot_cooldown := 0.06
 @export var return_rate := 5.0
 @export var snappiness := 10.0
 
@@ -23,6 +26,7 @@ var target_bob_position = Vector3.ZERO
 @onready var target_position = base_position
 
 @onready var shot_timer := $ShotCooldownTimer
+@onready var muscle_twitch_timer : Timer = $"../../MuscleTwitchTimer"
 @onready var gun_sounds = $GunSounds
 @onready var ray_cast := $RayCast3D
 
@@ -53,9 +57,9 @@ func _ready():
 
 
 func _process(delta):
-	target_rotation = lerp(target_rotation, Vector3.ZERO, return_rate*delta)
-	set_rotation(Vector3(lerp(rotation, target_rotation, snappiness*delta)))
-	set_position(Vector3(lerp(position, target_position + target_bob_position, snappiness*delta)))
+	target_rotation = lerp(target_rotation, base_rotation, return_rate*delta)
+	set_rotation(lerp(rotation, target_rotation,snappiness*delta))
+	set_position(lerp(position, target_position + target_bob_position, snappiness*delta))
 
 
 func _fire():
@@ -63,7 +67,33 @@ func _fire():
 	tween_bolt.play()
 	gun_sounds.pitch_scale = randf_range(0.9,1.1)
 	gun_sounds.play()
-	target_rotation += Vector3(deg_to_rad(randf_range(3,5)), deg_to_rad(randf_range(-3,3)), deg_to_rad(randf_range(-10,10)))
+	
+	if is_sight_in:
+		target_rotation += Vector3(deg_to_rad(randf_range(1,2)), deg_to_rad(randf_range(-1,1)), deg_to_rad(randf_range(-3,3)))
+	else:
+		target_rotation += Vector3(deg_to_rad(randf_range(2,3)), deg_to_rad(randf_range(-2,2)), deg_to_rad(randf_range(-5,5)))
+
+
+func look_rotate(relative):
+	if is_sight_in:
+		set_rotation(Vector3(lerp(rotation.x, -relative.y, 0.0002), lerp(rotation.y, -relative.x, 0.0001), rotation.z))
+	else:
+		set_rotation(Vector3(lerp(rotation.x, -relative.y, 0.0005), lerp(rotation.y, -relative.x, 0.0002), rotation.z))
+
+
+func sight_in():
+	if not $"../../../".sprint:
+		is_sight_in = true
+		base_rotation = Vector3.ZERO
+		target_position = Vector3(0,-0.076,base_position.z)
+
+
+func sight_out():
+	is_sight_in = false
+	if $"../../../".sprint:
+		base_rotation = Vector3(deg_to_rad(-11), deg_to_rad(12.5), 0)
+	target_position = base_position
+
 
 # Shot timer
 func _on_timer_timeout():
@@ -72,15 +102,7 @@ func _on_timer_timeout():
 	if shooting:
 		shot_timer.start(shot_cooldown)
 
-func look_rotate(relative):
-	set_rotation(Vector3(lerp(rotation.x, -relative.y, 0.0005), lerp(rotation.y, -relative.x, 0.0005), rotation.z))
 
-func sight_in():
-	target_position = Vector3(0,-0.076,base_position.z)
-#	tween_sight_out.stop()
-#	tween_sight_in.play()
-
-func sight_out():
-	target_position = base_position
-#	tween_sight_in.stop()
-#	tween_sight_out.play()
+func _on_muscle_twitch_timer_timeout():
+	target_rotation += Vector3(randf_range(-0.002,0.002), randf_range(-0.002,0.002), randf_range(-0.002,0.002))
+	muscle_twitch_timer.start(randf_range(0.05,0.1))

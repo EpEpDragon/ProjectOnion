@@ -29,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
 fov = 60.0
 
 [node name="Gun" parent="Body/Camera" instance=ExtResource("7_13llc")]
-transform = Transform3D(1, 0, 0, 0, 1, 4.19012e-35, 0, -4.19012e-35, 1, 0.100634, -0.121541, -0.0198314)
+transform = Transform3D(0.976133, -0.0408951, 0.213287, 6.67825e-09, 0.98211, 0.188307, -0.217172, -0.183813, 0.958671, 0.100634, -0.135216, -0.0198314)
 
 [node name="PositionGun" type="Node3D" parent="Body/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100634, -0.121541, -0.0198314)
@@ -37,10 +37,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100634, -0.121541, -0.01983
 [node name="AudioFootsteps" type="AudioStreamPlayer3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.664)
 attenuation_model = 3
-max_polyphony = 5
+max_polyphony = 10
 bus = &"WorldSound"
 script = ExtResource("4_5xkh7")
 audio_streams = [ExtResource("4_5dy3a"), ExtResource("5_bviww"), ExtResource("5_bviww"), ExtResource("7_coepo")]
 
+[node name="MuscleTwitchTimer" type="Timer" parent="Body"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_m4lv1")
+
+[connection signal="timeout" from="Body/MuscleTwitchTimer" to="Body/Camera/Gun" method="_on_muscle_twitch_timer_timeout"]

@@ -21,7 +21,18 @@ const LOOK_SENS = 0.2
 # Movement
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var target_direction = Vector3()
-var sprint = false
+
+# TODO Make sprint and sight in work well together
+# probably by using some kind of point aim while sprinting, i.e. should be able to shoot
+# and aim while sprinting.
+var sprint = false :
+	set(value):
+		if not gun.is_sight_in:
+			sprint = value
+			if sprint:
+				gun.base_rotation = Vector3(deg_to_rad(-11), deg_to_rad(12.5), 0)
+			else:
+				gun.base_rotation = Vector3.ZERO
 
 # GUI
 var in_menu = false
