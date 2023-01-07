@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxgfc67imbec1"]
+
+[ext_resource type="Script" path="res://Textures/UV_test.gd" id="1_semvt"]
+[ext_resource type="Texture2D" uid="uid://0ul76weo5wqd" path="res://Textures/UVMap.jpg" id="2_e888u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxmjo"]
+albedo_texture = ExtResource("2_e888u")
+
+[sub_resource type="SphereMesh" id="SphereMesh_r5eoa"]
+material = SubResource("StandardMaterial3D_gxmjo")
+radial_segments = 11
+rings = 10
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_semvt")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_r5eoa")

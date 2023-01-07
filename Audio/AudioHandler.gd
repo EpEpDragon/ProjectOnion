@@ -8,7 +8,7 @@ extends Node3D
 @onready var camera = $"/root/World/Player/Body/Camera" #player.get_camera()
 
 ##################### Audio ######################
-const REVERB_RAYS = 500
+const REVERB_RAYS = 250
 const REVERB_SAMPLES = 30
 const REVERB_RAY_LENGTH = 20
 
@@ -56,11 +56,13 @@ func _ready():
 
 
 func _process(_delta):
-	occlude_audio()
-	sample_room_reverb()
+	pass
+#	occlude_audio()
+#	sample_room_reverb()
 
 func occlude_audio():
 	for source in audio_sources:
+		# DEBUG
 #		debug_audio_line.clear()
 #		debug_audio_line_block.clear()
 		volume = source.VOLUME

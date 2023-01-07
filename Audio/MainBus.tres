@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://d1ic70tus7u6e"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://d1ic70tus7u6e"]
 
 [sub_resource type="AudioEffectPanner" id="AudioEffectPanner_qr2gb"]
 resource_name = "Panner"
@@ -6,7 +6,12 @@ resource_name = "Panner"
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_qvcjo"]
 resource_name = "Reverb"
 room_size = 0.28
-wet = 0.26
+spread = 0.5
+wet = 0.05
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_8xvd2"]
+resource_name = "Compressor"
+threshold = -6.0
 
 [resource]
 bus/0/volume_db = 0.0672607
@@ -15,14 +20,16 @@ bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = -0.130497
-bus/1/send = &"Master"
+bus/1/send = &"Loud"
 bus/1/effect/0/effect = SubResource("AudioEffectPanner_qr2gb")
 bus/1/effect/0/enabled = true
 bus/1/effect/1/effect = SubResource("AudioEffectReverb_qvcjo")
 bus/1/effect/1/enabled = true
-bus/2/name = &"LOUD"
+bus/1/effect/2/effect = SubResource("AudioEffectCompressor_8xvd2")
+bus/1/effect/2/enabled = true
+bus/2/name = &"Loud"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
-bus/2/send = &"Master"
+bus/2/send = &"WorldSound"

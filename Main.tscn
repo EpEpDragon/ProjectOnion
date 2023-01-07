@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://vfep1hrbvdrv" path="res://Player/Player.tscn" id="1_3lej4"]
 [ext_resource type="PackedScene" uid="uid://mfs7mt8oxgu6" path="res://GUI/EscapeMenu/esc_menu.tscn" id="2_spopn"]
-[ext_resource type="AudioStream" uid="uid://cvj0xpoaved8l" path="res://Audio/genji.mp3" id="2_wfski"]
 [ext_resource type="PackedScene" uid="uid://4r6u8e6038lx" path="res://GUI/PerformanceMenu/PerformanceMonitor.tscn" id="3_k65b8"]
 [ext_resource type="Script" path="res://SubViewport.gd" id="4_csu22"]
+[ext_resource type="AudioStream" uid="uid://ddihqdr5kjk1h" path="res://Audio/Whistle.mp3" id="5_8cofo"]
 [ext_resource type="Script" path="res://DebugViewport.gd" id="6_k0b0o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5o3jq"]
@@ -22,9 +22,8 @@ sky = SubResource("Sky_wne70")
 ambient_light_source = 3
 ambient_light_color = Color(0.403922, 0.403922, 0.403922, 1)
 ambient_light_sky_contribution = 0.2
-tonemap_mode = 1
+tonemap_mode = 3
 ssao_enabled = true
-sdfgi_enabled = true
 sdfgi_y_scale = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cd32"]
@@ -54,7 +53,7 @@ material = SubResource("StandardMaterial3D_57vds")
 script/source = "extends AudioSource
 
 func _ready():
-#	play_stream(0)
+	play_stream(0)
 	pass
 "
 
@@ -212,6 +211,56 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall12/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
+[node name="Wall16" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(9.67277, 0, 1.06805, 0, 11.49, 0, -11.0624, 0, 0.933888, 17.805, 5.39755, -10.9463)
+mesh = SubResource("BoxMesh_gum6w")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall16"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall16/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bjmsc")
+
+[node name="Wall17" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(9.67277, 0, 1.06805, 0, 11.49, 0, -11.0624, 0, 0.933888, 7.73226, 5.39755, -18.0526)
+mesh = SubResource("BoxMesh_gum6w")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall17"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall17/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bjmsc")
+
+[node name="Wall20" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(14.2496, 0, -0.346591, 0, 11.49, 0, 3.58983, 0, 1.37577, 10.6331, 5.39755, -7.43356)
+mesh = SubResource("BoxMesh_gum6w")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall20"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall20/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bjmsc")
+
+[node name="Wall18" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-11.5406, -9.79699, 5.04765e-08, 2.57719e-14, -5.74272e-07, -1.54855, 12.9166, -8.75336, 4.50995e-08, 12.4024, 10.4336, -14.3405)
+mesh = SubResource("BoxMesh_gum6w")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall18"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall18/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bjmsc")
+
+[node name="Wall19" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(11.57, 0, -0.896629, 0, 11.49, 0, 9.28686, 0, 1.11706, 16.2323, 5.39755, -19.3519)
+mesh = SubResource("BoxMesh_gum6w")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall19"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall19/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bjmsc")
+
 [node name="Wall15" type="MeshInstance3D" parent="Geometry"]
 transform = Transform3D(-2.18957, 0, 0.401191, 0, 4.42264, 0, -4.15535, 0, -0.211399, -5.25857, 2.212, -9.82983)
 mesh = SubResource("BoxMesh_gum6w")
@@ -328,7 +377,8 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="DebugViewport" type="SubViewportContainer" parent="TopDownDebug" node_paths=PackedStringArray("player")]
-layout_mode = 2
+offset_right = 512.0
+offset_bottom = 512.0
 stretch = true
 script = ExtResource("6_k0b0o")
 player = NodePath("../../Player")
@@ -344,43 +394,57 @@ projection = 1
 size = 10.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopDownDebug"]
-layout_mode = 2
+offset_left = 511.0
+offset_right = 512.0
+offset_bottom = 158.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="Voume" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
+offset_right = 1.0
+offset_bottom = 23.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="RoomSize" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
+offset_top = 27.0
+offset_right = 1.0
+offset_bottom = 50.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="RoomIntegrity" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
+offset_top = 54.0
+offset_right = 1.0
+offset_bottom = 77.0
 size_flags_horizontal = 8
 
 [node name="WetLabel" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
+offset_top = 81.0
+offset_right = 1.0
+offset_bottom = 104.0
 size_flags_horizontal = 8
 
 [node name="PanStrength" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
+offset_top = 108.0
+offset_right = 1.0
+offset_bottom = 131.0
 
 [node name="PanCorrection" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
+offset_top = 135.0
+offset_right = 1.0
+offset_bottom = 158.0
 size_flags_horizontal = 8
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.827367, -5.65616)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8319, 0.827367, -14.9552)
 mesh = SubResource("SphereMesh_l5f4q")
 
 [node name="AudioSource" type="AudioStreamPlayer3D" parent="MeshInstance3D"]
+volume_db = -24.0
 bus = &"WorldSound"
 script = SubResource("GDScript_t1dgv")
-audio_streams = [ExtResource("2_wfski")]
+audio_streams = [ExtResource("5_8cofo")]
 use_occlusion = true
 
 [node name="Player" parent="." node_paths=PackedStringArray("escape_menu") instance=ExtResource("1_3lej4")]

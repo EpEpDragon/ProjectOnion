@@ -37,6 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100634, -0.121541, -0.01983
 [node name="AudioFootsteps" type="AudioStreamPlayer3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.664)
 attenuation_model = 3
+volume_db = -4.0
 max_polyphony = 10
 bus = &"WorldSound"
 script = ExtResource("4_5xkh7")

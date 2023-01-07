@@ -1,18 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhlg1ko7p0n04"]
+[gd_scene load_steps=11 format=3 uid="uid://bhlg1ko7p0n04"]
 
 [ext_resource type="Script" path="res://Weapons/Gun.gd" id="1_ca7sk"]
 [ext_resource type="AudioStream" uid="uid://vt0k87jj70ki" path="res://Audio/GunShot.wav" id="2_mjx14"]
 [ext_resource type="Texture2D" uid="uid://4wrs3s2ay3yq" path="res://Textures/LaserDot.png" id="3_jtluq"]
+[ext_resource type="Shader" path="res://Weapons/MuzzelFlash.gdshader" id="4_705qo"]
+[ext_resource type="Texture2D" uid="uid://c1k57pily5rbv" path="res://Textures/new_noise_texture_2d.tres" id="4_clsd4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6i38o"]
+
+[sub_resource type="Curve" id="Curve_rmd4k"]
+_data = [Vector2(0, 0.2), 0.0, -0.683081, 0, 0, Vector2(0.0850277, 0.118182), 0.702597, 0.702597, 0, 0, Vector2(0.16451, 0.836364), 0.0, 0.0, 0, 0, Vector2(0.626617, 0.527273), 0.0, 0.0, 0, 0, Vector2(1, 0.309091), -8.28326, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_bidl8"]
+curve = SubResource("Curve_rmd4k")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7tyy"]
+render_priority = 0
+shader = ExtResource("4_705qo")
+shader_parameter/albedo = Color(1, 0.701961, 0, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/flash_noise_weight = 9.422
+shader_parameter/texture_albedo = ExtResource("4_clsd4")
+shader_parameter/flash_profile = SubResource("CurveTexture_bidl8")
+
+[sub_resource type="SphereMesh" id="SphereMesh_gqlxq"]
+material = SubResource("ShaderMaterial_w7tyy")
+uv2_padding = 0.0
+radius = 0.081
+height = 0.164
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_ca7sk")
 
 [node name="GunSounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_mjx14")
+volume_db = -4.0
 max_polyphony = 5
-bus = &"LOUD"
+bus = &"Loud"
 
 [node name="ShotCooldownTimer" type="Timer" parent="."]
 process_callback = 0
@@ -121,6 +156,7 @@ skeleton = NodePath("../..")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0241876, -0.741748)
+visible = false
 target_position = Vector3(0, -100, 0)
 
 [node name="Decal" type="Decal" parent="."]
@@ -129,5 +165,16 @@ extents = Vector3(0.02, 50, 0.02)
 texture_emission = ExtResource("3_jtluq")
 emission_energy = 128.0
 normal_fade = 0.5
+cull_mask = 1048573
+
+[node name="MuzzelFlash" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.00020057, 0.023016, -0.926693)
+visible = false
+layers = 2
+cast_shadow = 0
+mesh = SubResource("SphereMesh_gqlxq")
+
+[node name="FlashTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="ShotCooldownTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
