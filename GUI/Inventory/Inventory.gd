@@ -2,11 +2,11 @@ extends Control
 
 const CELL_SIZE = 80
 const GRID_W = 10
-const GRID_H = 5
+const GRID_H = 7
 const GRID_SIZE = GRID_W*GRID_H
 
 var item = preload("res://GUI/Inventory/InventoryItem.tscn")
-var items : Dictionary = {"Stick" : Vector2(0,0)}
+var items : Dictionary = {"Stick" : Vector2i(0,0)}
 
 @onready var grid : GridContainer = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/InventoryGrid
 @onready var item_layer : CanvasLayer = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Spacer/CanvasLayer
@@ -20,12 +20,12 @@ func _set(property, value):
 
 
 func _ready():
-	add_item(Vector2(0,0), Vector2(3,2))
-	add_item(Vector2(4,3), Vector2(1,2))
-	add_item(Vector2(1,2), Vector2(1,1))
+	add_item(Vector2i(0,0), Vector2i(3,2))
+	add_item(Vector2i(4,3), Vector2i(1,2))
+	add_item(Vector2i(1,2), Vector2i(1,1))
 
 
-func add_item(grid_position := Vector2.ZERO, dimentions := Vector2.ONE) -> void:
+func add_item(grid_position := Vector2i.ZERO, dimentions := Vector2i.ONE) -> void:
 	var instance = item.instantiate()
 	instance.grid_position = grid_position
 	instance.dimentions = dimentions

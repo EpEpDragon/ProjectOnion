@@ -2,12 +2,12 @@ extends PanelContainer
 class_name InventorySlot
 
 var is_occupied = false
-var _index_x
-var _index_y
-var _dim_drag
+var _index_x : int
+var _index_y : int
+var _dim_drag : Vector2i
 @onready var grid = $".."
 
-func _init(i_x, i_y, cell_size):
+func _init(i_x : int, i_y : int, cell_size : int):
 	_index_x = i_x
 	_index_y = i_y
 	custom_minimum_size = Vector2(cell_size, cell_size)
