@@ -9,9 +9,6 @@ const JUMP_VELOCITY = 4.5
 const LOOK_SENS = 0.2
 
 
-# Escape menu reference
-@export var escape_menu : Control
-
 @onready var PHYSICS_FPS = Engine.physics_ticks_per_second
 @onready var camera : Camera3D = $Body/Camera
 @onready var body : MeshInstance3D = $Body
@@ -79,11 +76,11 @@ func _input(event):
 	elif event.is_action_pressed("menu"):
 		if !in_menu:
 			in_menu = true
-			escape_menu.visible = true
+			EscMenu.visible = true
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			in_menu = false
-			escape_menu.visible = false
+			EscMenu.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif event.is_action_pressed("free_cam"):
 		free_cam = !free_cam

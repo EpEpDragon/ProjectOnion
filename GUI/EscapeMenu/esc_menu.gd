@@ -3,9 +3,9 @@ extends Control
 const MAX_RES = Vector2i(3440, 1440)
 
 # Player ref
-@export var player : CharacterBody3D
+@onready var player = $"/root/World/Player"
 # Environment ref
-@export var environment : WorldEnvironment
+@onready var environment = $"/root/World/WorldEnvironment"
 
 ###### Video ######
 # Fullscreen

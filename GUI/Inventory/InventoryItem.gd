@@ -30,7 +30,7 @@ var grid_position := Vector2i(0,0):
 		grid_position = pos_new
 #		set_occupation_flags()
 		Inventory.clear_drop_preview()
-		position = grid_position * Inventory.CELL_SIZE + Vector2i(4,10)
+		position = (grid_position-Vector2i(0,Inventory.GRID_H)) * Inventory.CELL_SIZE + Vector2i(6,-4)
 
 var is_rotated := false:
 	set(rotated):

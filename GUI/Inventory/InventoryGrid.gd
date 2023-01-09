@@ -1,4 +1,5 @@
 extends GridContainer
+@tool
 
 func _ready():
 	# Populate inventroy with appropriate amount of grid slots

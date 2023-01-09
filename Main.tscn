@@ -355,10 +355,8 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Pillar7/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
-[node name="EscapeMenu" parent="." node_paths=PackedStringArray("player", "environment") instance=ExtResource("2_spopn")]
+[node name="EscapeMenu" parent="." instance=ExtResource("2_spopn")]
 visible = false
-player = NodePath("../Player")
-environment = NodePath("../WorldEnvironment")
 
 [node name="PerformaceDisplay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_k65b8")]
 player = NodePath("../Player")
@@ -377,8 +375,7 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="DebugViewport" type="SubViewportContainer" parent="TopDownDebug" node_paths=PackedStringArray("player")]
-offset_right = 512.0
-offset_bottom = 512.0
+layout_mode = 2
 stretch = true
 script = ExtResource("6_k0b0o")
 player = NodePath("../../Player")
@@ -394,46 +391,33 @@ projection = 1
 size = 10.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopDownDebug"]
-offset_left = 511.0
-offset_right = 512.0
-offset_bottom = 158.0
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="Voume" type="Label" parent="TopDownDebug/VBoxContainer"]
-offset_right = 1.0
-offset_bottom = 23.0
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="RoomSize" type="Label" parent="TopDownDebug/VBoxContainer"]
-offset_top = 27.0
-offset_right = 1.0
-offset_bottom = 50.0
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="RoomIntegrity" type="Label" parent="TopDownDebug/VBoxContainer"]
-offset_top = 54.0
-offset_right = 1.0
-offset_bottom = 77.0
+layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="WetLabel" type="Label" parent="TopDownDebug/VBoxContainer"]
-offset_top = 81.0
-offset_right = 1.0
-offset_bottom = 104.0
+layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="PanStrength" type="Label" parent="TopDownDebug/VBoxContainer"]
-offset_top = 108.0
-offset_right = 1.0
-offset_bottom = 131.0
+layout_mode = 2
 
 [node name="PanCorrection" type="Label" parent="TopDownDebug/VBoxContainer"]
-offset_top = 135.0
-offset_right = 1.0
-offset_bottom = 158.0
+layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -447,5 +431,4 @@ script = SubResource("GDScript_t1dgv")
 audio_streams = [ExtResource("5_8cofo")]
 use_occlusion = true
 
-[node name="Player" parent="." node_paths=PackedStringArray("escape_menu") instance=ExtResource("1_3lej4")]
-escape_menu = NodePath("../EscapeMenu")
+[node name="Player" parent="." instance=ExtResource("1_3lej4")]

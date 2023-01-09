@@ -10,7 +10,7 @@ var items : Array[InventoryItem]
 
 @onready var grid : GridContainer = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/InventoryGrid
 @onready var item_layer : CanvasLayer = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Spacer/CanvasLayer
-@onready var grid_start = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Spacer/CanvasLayer/GridStart
+@onready var grid_start = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/GridStart
 
 func _set(property, value):
 	match property:
