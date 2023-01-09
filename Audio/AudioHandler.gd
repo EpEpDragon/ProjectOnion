@@ -56,9 +56,9 @@ func _ready():
 
 
 func _process(_delta):
-	pass
-#	occlude_audio()
-#	sample_room_reverb()
+#	pass
+	occlude_audio()
+	sample_room_reverb()
 
 func occlude_audio():
 	for source in audio_sources:
@@ -162,8 +162,6 @@ func rand_points_on_sphere(n : int) -> PackedVector3Array:
 	for i in range(n):
 		while points[i] == Vector3.ZERO:
 			points[i] = Vector3(randi()-0x80000000, randi()-0x80000000, randi()-0x80000000).normalized()
-			if points[i] == Vector3.ZERO:
-				print("ZERO VECTOR")
 	return points
 
 

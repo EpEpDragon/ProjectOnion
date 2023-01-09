@@ -1,44 +1,37 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhlg1ko7p0n04"]
+[gd_scene load_steps=9 format=3 uid="uid://bhlg1ko7p0n04"]
 
 [ext_resource type="Script" path="res://Weapons/Gun.gd" id="1_ca7sk"]
 [ext_resource type="AudioStream" uid="uid://vt0k87jj70ki" path="res://Audio/GunShot.wav" id="2_mjx14"]
 [ext_resource type="Texture2D" uid="uid://4wrs3s2ay3yq" path="res://Textures/LaserDot.png" id="3_jtluq"]
-[ext_resource type="Shader" path="res://Weapons/MuzzelFlash.gdshader" id="4_705qo"]
-[ext_resource type="Texture2D" uid="uid://c1k57pily5rbv" path="res://Textures/new_noise_texture_2d.tres" id="4_clsd4"]
+[ext_resource type="Texture2D" uid="uid://1r1khx2e7eff" path="res://Textures/FireBall01-temperature_8x8.exr" id="4_70v1y"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6i38o"]
 
-[sub_resource type="Curve" id="Curve_rmd4k"]
-_data = [Vector2(0, 0.2), 0.0, -0.683081, 0, 0, Vector2(0.0850277, 0.118182), 0.702597, 0.702597, 0, 0, Vector2(0.16451, 0.836364), 0.0, 0.0, 0, 0, Vector2(0.626617, 0.527273), 0.0, 0.0, 0, 0, Vector2(1, 0.309091), -8.28326, 0.0, 0, 0]
-point_count = 5
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r7ybl"]
+emission_shape = 3
+emission_box_extents = Vector3(0.07, 0.07, 0.2)
+direction = Vector3(0, 0, -1)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+angle_min = 90.0
+angle_max = 180.0
+scale_min = 0.01
+scale_max = 0.3
+color = Color(0.701961, 0.376471, 0, 1)
+anim_offset_max = 1.0
 
-[sub_resource type="CurveTexture" id="CurveTexture_bidl8"]
-curve = SubResource("Curve_rmd4k")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf71r"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_70v1y")
+billboard_mode = 3
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7tyy"]
-render_priority = 0
-shader = ExtResource("4_705qo")
-shader_parameter/albedo = Color(1, 0.701961, 0, 1)
-shader_parameter/point_size = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 0.0
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/uv2_scale = Vector3(1, 1, 1)
-shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/flash_noise_weight = 9.422
-shader_parameter/texture_albedo = ExtResource("4_clsd4")
-shader_parameter/flash_profile = SubResource("CurveTexture_bidl8")
-
-[sub_resource type="SphereMesh" id="SphereMesh_gqlxq"]
-material = SubResource("ShaderMaterial_w7tyy")
-uv2_padding = 0.0
-radius = 0.081
-height = 0.164
+[sub_resource type="QuadMesh" id="QuadMesh_xbmf6"]
+material = SubResource("StandardMaterial3D_yf71r")
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_ca7sk")
@@ -167,14 +160,19 @@ emission_energy = 128.0
 normal_fade = 0.5
 cull_mask = 1048573
 
-[node name="MuzzelFlash" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.00020057, 0.023016, -0.926693)
-visible = false
+[node name="MuzzelFlash" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0256667, -0.972134)
 layers = 2
-cast_shadow = 0
-mesh = SubResource("SphereMesh_gqlxq")
-
-[node name="FlashTimer" type="Timer" parent="."]
+emitting = false
+amount = 60
+lifetime = 0.01
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_r7ybl")
+draw_passes = 2
+draw_pass_1 = SubResource("QuadMesh_xbmf6")
+draw_pass_2 = null
 
 [connection signal="timeout" from="ShotCooldownTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

@@ -30,8 +30,8 @@ var shot_cooldown := 60.0/rate_of_fire
 @onready var muscle_twitch_timer : Timer = $"../../MuscleTwitchTimer"
 @onready var gun_sounds = $GunSounds
 @onready var ray_cast := $RayCast3D
-@onready var muzzel_flash : MeshInstance3D = $MuzzelFlash
-@onready var timer_flash := $FlashTimer
+#@onready var muzzel_flash = $MuzzelFlash
+#@onready var timer_flash := $FlashTimer
 
 @onready var tween_bolt = create_tween()
 @onready var tween_sight_in = create_tween()
@@ -67,10 +67,10 @@ func _process(delta):
 
 func _fire():
 	print(ray_cast.get_collider())
-	muzzel_flash.mesh.material.set_shader_parameter("uv1_offset", Vector3(randf(),0.0,0.0))
-	muzzel_flash.visible = true
-	
-	timer_flash.start(0.02)
+#	muzzel_flash.mesh.material.set_shader_parameter("uv1_offset", Vector3(randf(),0.0,0.0))
+#	muzzel_flash.visible = true
+#	timer_flash.start(0.02)
+	$MuzzelFlash.emitting = true;
 	tween_bolt.play()
 	gun_sounds.pitch_scale = randf_range(0.9,1.2)
 	gun_sounds.play()
@@ -115,5 +115,5 @@ func _on_muscle_twitch_timer_timeout():
 	muscle_twitch_timer.start(randf_range(0.05,0.1))
 
 
-func _on_flash_timer_timeout():
-	muzzel_flash.visible = false
+#func _on_flash_timer_timeout():
+#	muzzel_flash.visible = false

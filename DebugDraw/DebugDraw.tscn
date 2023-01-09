@@ -1,12 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdjyax3sarqc5"]
+[gd_scene load_steps=2 format=3 uid="uid://1ghmgbd116ts"]
 
-[ext_resource type="Script" path="res://DebugDraw/DebugDraw.gd" id="1_7xseg"]
+[ext_resource type="Script" path="res://DebugDraw/DebugDraw.gd" id="1_3qsop"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_7xseg")
-
-[node name="Lables" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+script = ExtResource("1_3qsop")

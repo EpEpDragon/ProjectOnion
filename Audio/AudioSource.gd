@@ -43,28 +43,6 @@ func _set(name, value):
 			pitch_scale = value
 			for s in sources:
 				s.pitch_scale = value
-func _ready():
-#	audio_streams = [0,0]
-	print(audio_streams)
-	print(use_occlusion)
-#func _init():
-#	print(audio_streams)
-#	if use_occlusion:
-#		AudioHandler.add_audio_source(self)
-#	for s in audio_streams:
-#		var key = s.resource_path.get_file()
-#		sources[key] = (AudioStreamPlayer3D.new())
-#		sources[key].stream = s
-#		sources[key].attenuation_model = attenuation_model
-#		sources[key].volume_db = volume_db
-#		sources[key].unit_size = unit_size
-#		sources[key].max_db = max_db
-#		sources[key].pitch_scale = pitch_scale
-#		sources[key].max_distance = max_distance
-#		sources[key].max_polyphony = max_polyphony
-#		sources[key].panning_strength = panning_strength
-#		sources[key].bus = bus
-#		add_child(sources[key])
 
 func play_stream(stream : int = 0) -> void:
 	sources[stream].play()

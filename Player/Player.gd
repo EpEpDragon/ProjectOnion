@@ -59,16 +59,25 @@ func _input(event):
 		sprint = true
 	elif event.is_action_released("sprint"): 
 		sprint = false
-	elif event.is_action_pressed("fire_primary"):
+	elif event.is_action_pressed("fire_primary") and !in_menu:
 		gun.shooting = true
-	elif event.is_action_released("fire_primary"):
+	elif event.is_action_released("fire_primary") and !in_menu:
 		gun.shooting = false
-	elif event.is_action_pressed("fire_secondary"):
+	elif event.is_action_pressed("fire_secondary") and !in_menu:
 		gun.sight_in()
-	elif event.is_action_released("fire_secondary"):
+	elif event.is_action_released("fire_secondary") and !in_menu:
 		gun.sight_out()
+	elif event.is_action_pressed("invenotry"):
+		if !in_menu:
+			in_menu = true
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			Inventory.visible = true
+		else:
+			in_menu = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			Inventory.visible = false
 	elif event.is_action_pressed("menu"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if !in_menu:
 			in_menu = true
 			escape_menu.visible = true
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
