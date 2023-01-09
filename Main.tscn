@@ -53,7 +53,7 @@ material = SubResource("StandardMaterial3D_57vds")
 script/source = "extends AudioSource
 
 func _ready():
-	play_stream(0)
+#	play_stream(0)
 	pass
 "
 

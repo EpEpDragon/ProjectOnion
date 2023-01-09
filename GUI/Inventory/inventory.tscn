@@ -14,42 +14,29 @@ size_flags_vertical = 0
 script = ExtResource("1_uf1pu")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 848.0
 offset_bottom = 482.0
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
-offset_left = 737.0
-offset_top = 10.0
-offset_right = 838.0
-offset_bottom = 76.0
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme = ExtResource("1_jsu6i")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 98.0
-offset_bottom = 63.0
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 85.0
-offset_bottom = 50.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-offset_right = 75.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "Inventory"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 30.0
-offset_right = 75.0
-offset_bottom = 30.0
+layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Spacer"]
 
@@ -62,15 +49,10 @@ offset_right = 1136.0
 offset_bottom = 93.0
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-offset_top = 34.0
-offset_right = 75.0
-offset_bottom = 40.0
+layout_mode = 2
 
 [node name="InventoryGrid" type="GridContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 72.0
-offset_bottom = 3.0
+layout_mode = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 10

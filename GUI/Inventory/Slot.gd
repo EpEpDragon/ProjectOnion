@@ -2,45 +2,72 @@ extends PanelContainer
 class_name InventorySlot
 
 var is_occupied = false
-var index_x
-var index_y
-
+var _index_x
+var _index_y
+var _dim_drag
 @onready var grid = $".."
 
-func _init(pos_x, pos_y, cell_size):
-	index_x = pos_x
-	index_y = pos_y
+func _init(i_x, i_y, cell_size):
+	_index_x = i_x
+	_index_y = i_y
 	custom_minimum_size = Vector2(cell_size, cell_size)
 
-func _can_drop_data(at_position, data):
-	for i in Inventory.GRID_H*Inventory.GRID_W:
-		grid.get_child(i).modulate = Color.WHITE
-	print("Can drop")
-	print(get_index())
+
+func _can_drop_data(_at_position, data):
+	# TODO Make can drop method cleaner if possible
+	Inventory.clear_drop_preview()
+	
 	var color
-	if is_block_occupied(get_index(), index_x, index_y, data.dimentions):
+	var can_drop
+	
+
+	if data.is_rotated:
+		_dim_drag = Vector2(data.dimentions.y, data.dimentions.x)
+	else:
+		_dim_drag = Vector2(data.dimentions.x, data.dimentions.y)
+	
+	# Check if can drop
+	if _is_block_occupied():
 		color = Color.RED
+		can_drop = false
 	else:
 		color = Color.GREEN
-	for y in data.dimentions.y:
-		for x in data.dimentions.x:
-			if x + index_x >= Inventory.GRID_W or y + index_y >= Inventory.GRID_H:
+		can_drop = true
+	
+	# Set drop preview color
+	for y in _dim_drag.y:
+		for x in _dim_drag.x:
+			if x + _index_x >= Inventory.GRID_W or y + _index_y >= Inventory.GRID_H:
 				continue
 			grid.get_child(get_index() + x + y*Inventory.GRID_W).modulate = color
-	return true
+	
+	# Handle drop cancel case
+	if not data.is_dragging and not can_drop:
+		data.set_occupation_flags()
+		Inventory.clear_drop_preview()
+		data.is_rotated = false
+		
+	return can_drop
 
-func _drop_data(at_position, data):
-	for i in Inventory.GRID_H*Inventory.GRID_W:
-		grid.get_child(i).modulate = Color.WHITE
-	print("Drop")
 
-func is_block_occupied(i:int, i_x:int, i_y:int, dim : Vector2):
-	print("x: %s" % index_x)
-	print("y: %s" % index_y)
-	for y in dim.y:
-		for x in dim.x:
-			if x + index_x >= Inventory.GRID_W or y + index_y >= Inventory.GRID_H:
-				return true
-			if grid.get_child(i + x + y*Inventory.GRID_W).is_occupied:
+func _drop_data(_at_position, data):
+	data.grid_position = Vector2(_index_x, _index_y)
+	data.dimentions = _dim_drag
+	data.set_occupation_flags()
+	
+	# DEBUG
+	Inventory.clear_drop_preview()
+	
+	data.is_rotated = false
+
+
+func _is_block_occupied():
+	# Check inventroy overflow
+	if _index_x + _dim_drag.x > Inventory.GRID_W or _index_y + _dim_drag.y > Inventory.GRID_H:
+		return true
+	# Check overlap with other blocks
+	for y in _dim_drag.y:
+		for x in _dim_drag.x:
+			if grid.get_child(get_index() + x + y*Inventory.GRID_W).is_occupied:
 				return true
 	return false
