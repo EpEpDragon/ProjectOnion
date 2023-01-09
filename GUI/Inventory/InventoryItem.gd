@@ -9,8 +9,12 @@ var is_dragging = false:
 		is_dragging = dragging
 		if is_dragging:
 			visible = false
+			for item in Inventory.items:
+				item.mouse_filter = MOUSE_FILTER_IGNORE
 		else:
 			visible = true
+			for item in Inventory.items:
+				item.mouse_filter = MOUSE_FILTER_STOP
 
 var dimentions := Vector2i(1,1):
 	set(dim_new):

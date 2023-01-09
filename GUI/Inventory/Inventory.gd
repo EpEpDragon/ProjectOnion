@@ -6,7 +6,7 @@ const GRID_H = 7
 const GRID_SIZE = GRID_W*GRID_H
 
 var item = preload("res://GUI/Inventory/InventoryItem.tscn")
-var items : Dictionary = {"Stick" : Vector2i(0,0)}
+var items : Array[InventoryItem]
 
 @onready var grid : GridContainer = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/InventoryGrid
 @onready var item_layer : CanvasLayer = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Spacer/CanvasLayer
@@ -30,6 +30,7 @@ func add_item(grid_position := Vector2i.ZERO, dimentions := Vector2i.ONE) -> voi
 	instance.grid_position = grid_position
 	instance.dimentions = dimentions
 	instance.set_occupation_flags()
+	items.append(instance)
 	grid_start.add_child(instance)
 
 func clear_drop_preview():
