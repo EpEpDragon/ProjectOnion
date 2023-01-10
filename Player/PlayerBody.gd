@@ -47,6 +47,7 @@ func tween_setup():
 	stop_tween.set_loops()
 	stop_tween.tween_property(self, "local_pos", base_position, BOB_TIME/3)
 	stop_tween.parallel().tween_property(gun, "target_bob_position", Vector3.ZERO, BOB_TIME/3)
+	stop_tween.parallel().tween_property(gun, "target_bob_rotation", Vector3.ZERO, BOB_TIME/3)
 	stop_tween.tween_callback(audio_footsteps.play_stream)
 	stop_tween.tween_callback(stop_tween.stop)
 
