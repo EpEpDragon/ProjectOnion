@@ -9,17 +9,18 @@ const MAX_RES = Vector2i(3440, 1440)
 
 ###### Video ######
 # Fullscreen
-@onready var fullscreen_button : CheckButton = $PanelContainer/MarginContainer/TabContainer/Video/Fullscreen
+@onready var fullscreen_button : CheckButton = $MarginContainer/PanelContainer/MarginContainer/TabContainer/Video/Fullscreen
 # Resolutuion scale
-@onready var resolution_scale = $PanelContainer/MarginContainer/TabContainer/Video/ResolutionScale
+@onready var resolution_scale = $MarginContainer/PanelContainer/MarginContainer/TabContainer/Video/ResolutionScale
 # FOV
-@onready var fov = $PanelContainer/MarginContainer/TabContainer/Video/FOV
+@onready var fov = $MarginContainer/PanelContainer/MarginContainer/TabContainer/Video/FOV
 # TAA
-@onready var taa : CheckButton = $PanelContainer/MarginContainer/TabContainer/Video/TAA
-@onready var ssao : CheckButton = $PanelContainer/MarginContainer/TabContainer/Video/SSAO
-@onready var sdfgi : CheckButton = $PanelContainer/MarginContainer/TabContainer/Video/SDFGI
+@onready var taa : CheckButton = $MarginContainer/PanelContainer/MarginContainer/TabContainer/Video/TAA
+@onready var ssao : CheckButton = $MarginContainer/PanelContainer/MarginContainer/TabContainer/Video/SSAO
+@onready var sdfgi : CheckButton = $MarginContainer/PanelContainer/MarginContainer/TabContainer/Video/SDFGI
 
 func _ready():
+	visible = false
 	fullscreen_button.toggled.connect(_fullscreen_toggle)
 	
 	resolution_scale.get_slider().value_changed.connect(_resolution_scale_change)

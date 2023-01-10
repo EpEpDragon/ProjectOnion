@@ -1,8 +1,8 @@
 extends CharacterBody3D
 class_name PlayerCharacter
 
-const MAX_SPEED = 2.5
-const MAX_SPEED_SPRINT = 4
+const MAX_SPEED = 3.5
+const MAX_SPEED_SPRINT = 6
 const ACCELERATION = 50.0
 const ACCELERATION_AIR = 3.0
 const JUMP_VELOCITY = 4.5
@@ -22,82 +22,50 @@ var target_direction = Vector3()
 # TODO Make sprint and sight in work well together
 # probably by using some kind of point aim while sprinting, i.e. should be able to shoot
 # and aim while sprinting.
-var sprint = false :
+var is_sprinting = false :
 	set(value):
-		if not gun.is_sight_in:
-			sprint = value
-			if sprint:
-				gun.base_rotation = Vector3(deg_to_rad(-11), deg_to_rad(12.5), 0)
-			else:
-				gun.base_rotation = Vector3.ZERO
+		is_sprinting = value
+		# Update sight in position
+		if Input.is_action_pressed("fire_secondary"):
+			gun.sight_in()
+		else:
+			gun.sight_out()
 
 # GUI
-var in_menu = false
-
 var free_cam = false
 
 func _ready():
-	print("PHYSICS_FPS: ", PHYSICS_FPS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+# Character control input
 func _unhandled_input(event):
-	if event is InputEventMouseMotion and !in_menu:
-		if !free_cam:
-			camera.rotation.x = clamp(camera.rotation.x + -event.relative.y*0.01*LOOK_SENS, -PI/2, PI/2)
-			rotation.y += -event.relative.x*0.01*LOOK_SENS
-			gun.look_rotate(event.relative)
-		else:
-			camera.rotation.x = clamp(camera.rotation.x + -event.relative.y*0.01*LOOK_SENS, -PI/2, PI/2)
-			camera.rotation.y += -event.relative.x*0.01*LOOK_SENS
-
-
-func _input(event):
-	if event.is_action_pressed("sprint"): 
-		sprint = true
+	if event is InputEventMouseMotion:
+#		if !free_cam:
+		camera.rotation.x = clamp(camera.rotation.x + -event.relative.y*0.01*LOOK_SENS, -PI/2, PI/2)
+		rotation.y += -event.relative.x*0.01*LOOK_SENS
+		gun.look_rotate(event.relative)
+#		else:
+#			camera.rotation.x = clamp(camera.rotation.x + -event.relative.y*0.01*LOOK_SENS, -PI/2, PI/2)
+#			camera.rotation.y += -event.relative.x*0.01*LOOK_SENS
+	elif event.is_action_pressed("sprint"): 
+		is_sprinting = true
 	elif event.is_action_released("sprint"): 
-		sprint = false
-	elif event.is_action_pressed("fire_primary") and !in_menu:
+		is_sprinting = false
+	elif event.is_action_pressed("fire_primary"):
 		gun.shooting = true
-	elif event.is_action_released("fire_primary") and !in_menu:
+	elif event.is_action_released("fire_primary"):
 		gun.shooting = false
-	elif event.is_action_pressed("fire_secondary") and !in_menu:
+	elif event.is_action_pressed("fire_secondary"):
 		gun.sight_in()
-	elif event.is_action_released("fire_secondary") and !in_menu:
+	elif event.is_action_released("fire_secondary"):
 		gun.sight_out()
-	elif event.is_action_pressed("invenotry"):
-		if !in_menu:
-			in_menu = true
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			Inventory.visible = true
-		else:
-			in_menu = false
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			Inventory.visible = false
-	elif event.is_action_pressed("menu"):
-		if !in_menu:
-			in_menu = true
-			EscMenu.visible = true
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			in_menu = false
-			EscMenu.visible = false
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	elif event.is_action_pressed("free_cam"):
-		free_cam = !free_cam
-		camera.position = base_camera_position
-		camera.rotation = Vector3.ZERO
 
 func _physics_process(delta):
-	if !free_cam:
-		_character_movement(delta)
+	_character_movement(delta)
 
 
 func _process(delta):
-	if !free_cam:
-		pass
-		_fix_jitter(delta)
-	else:
-		_free_cam_movement(delta)
+	_fix_jitter(delta)
 
 
 func _character_movement(delta):
@@ -130,7 +98,7 @@ func _character_movement(delta):
 	
 	# Clamp horizontal velocity to max speed
 	var max_speed = MAX_SPEED
-	if sprint: max_speed = MAX_SPEED_SPRINT
+	if is_sprinting: max_speed = MAX_SPEED_SPRINT
 	
 	if velocity.x*velocity.x + velocity.z*velocity.z > max_speed*max_speed:
 		var direction = Vector2(velocity.x, velocity.z).normalized()
@@ -165,6 +133,3 @@ func _fix_jitter(delta) -> void:
 
 func get_camera():
 	return $Body/Camera
-
-func is_sprinting():
-	return sprint

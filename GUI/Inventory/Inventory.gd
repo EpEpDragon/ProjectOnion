@@ -20,6 +20,7 @@ func _set(property, value):
 
 
 func _ready():
+	visible = false
 	add_item(Vector2i(0,0), Vector2i(3,2))
 	add_item(Vector2i(4,3), Vector2i(1,2))
 	add_item(Vector2i(1,2), Vector2i(1,1))

@@ -61,6 +61,7 @@ AudioHandler="*res://Audio/AudioHandler.tscn"
 Inventory="*res://GUI/Inventory/Inventory.tscn"
 ItemDb="*res://GUI/Inventory/ItemDB.gd"
 EscMenu="*res://GUI/EscapeMenu/esc_menu.tscn"
+InputHandler="*res://InputHandler.gd"
 
 [display]
 

@@ -29,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
 fov = 60.0
 
 [node name="Gun" parent="Body/Camera" instance=ExtResource("7_13llc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100634, -0.135216, -0.0198314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12684, -0.172137, -0.0206539)
 
 [node name="PositionGun" type="Node3D" parent="Body/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100634, -0.121541, -0.0198314)

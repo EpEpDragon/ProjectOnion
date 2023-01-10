@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://dsnruiwox5fq2"]
+[gd_scene load_steps=18 format=3 uid="uid://dsnruiwox5fq2"]
 
 [ext_resource type="PackedScene" uid="uid://vfep1hrbvdrv" path="res://Player/Player.tscn" id="1_3lej4"]
-[ext_resource type="PackedScene" uid="uid://mfs7mt8oxgu6" path="res://GUI/EscapeMenu/esc_menu.tscn" id="2_spopn"]
 [ext_resource type="PackedScene" uid="uid://4r6u8e6038lx" path="res://GUI/PerformanceMenu/PerformanceMonitor.tscn" id="3_k65b8"]
 [ext_resource type="Script" path="res://SubViewport.gd" id="4_csu22"]
 [ext_resource type="AudioStream" uid="uid://ddihqdr5kjk1h" path="res://Audio/Whistle.mp3" id="5_8cofo"]
@@ -355,9 +354,6 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Pillar7/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_bjmsc")
 
-[node name="EscapeMenu" parent="." instance=ExtResource("2_spopn")]
-visible = false
-
 [node name="PerformaceDisplay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_k65b8")]
 player = NodePath("../Player")
 
@@ -375,7 +371,6 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="DebugViewport" type="SubViewportContainer" parent="TopDownDebug" node_paths=PackedStringArray("player")]
-layout_mode = 2
 stretch = true
 script = ExtResource("6_k0b0o")
 player = NodePath("../../Player")
@@ -391,33 +386,26 @@ projection = 1
 size = 10.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopDownDebug"]
-layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="Voume" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="RoomSize" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="RoomIntegrity" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="WetLabel" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="PanStrength" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
 
 [node name="PanCorrection" type="Label" parent="TopDownDebug/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

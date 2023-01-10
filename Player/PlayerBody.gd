@@ -1,13 +1,13 @@
 extends MeshInstance3D
 
 const BOB_DISTANCE = 0.03
-const BOB_TIME = 0.95
+const BOB_TIME = 0.8
 const RUN_MULTIPLE = 1.3
 
 var walk = false
 var local_pos = position
 @onready var gun := $Camera/Gun
-@onready var player := $"../"
+@onready var player : PlayerCharacter = $"../"
 @onready var audio_footsteps := $"AudioFootsteps"
 @onready var walk_tween := create_tween()
 @onready var stop_tween := create_tween()
@@ -20,7 +20,7 @@ func _ready():
 
 # TODO Make walk and sprinting checks not in process
 func _process(_delta):
-	if player.is_sprinting():
+	if player.is_sprinting:
 		walk_tween.set_speed_scale(RUN_MULTIPLE)
 	else:
 		walk_tween.set_speed_scale(1)
@@ -51,5 +51,12 @@ func tween_setup():
 	stop_tween.tween_callback(stop_tween.stop)
 
 func bob(t : float, x_max : float, y_max : float):
+	# Camera bob
 	local_pos = base_position + Vector3(x_max*sin(t), y_max*sin(2*t), 0)
-	gun.target_bob_position = Vector3(x_max*sin(t), y_max*sin(2*t), 0)*0.2
+	# Gun bob
+	if player.is_sprinting:
+		gun.target_bob_rotation = Vector3(randf_range(0,3)*sin(2*t), randf_range(0,3)*sin(2*t), 5*sin(t))
+		gun.target_bob_position = Vector3(x_max*sin(t), y_max*sin(2*t), 0)*0.4
+	else:
+		gun.target_bob_rotation = Vector3(0.5*sin(2*t), 0.5*sin(2*t), 3*sin(t))
+		gun.target_bob_position = Vector3(x_max*sin(t), y_max*0.5*sin(2*t), 0)*0.2

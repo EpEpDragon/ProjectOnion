@@ -8,36 +8,43 @@ var shooting := false :
 			if not shot_timer.get_time_left():
 				_fire()
 				shot_timer.start(shot_cooldown)
+		elif player.is_sprinting and not Input.is_action_pressed("fire_secondary"):
+			sight_out()
 
 var target_rotation = Vector3.ZERO
 var base_rotation = Vector3.ZERO
+var target_position = Vector3.ZERO
+var base_position = Vector3.ZERO
 var target_bob_position = Vector3.ZERO
+var target_bob_rotation = Vector3.ZERO
 var is_sight_in = false
 
 # TODO Fix all this variable barf
 @export var sight_time := 0.2
 @export var rate_of_fire := 800.0
 var shot_cooldown := 60.0/rate_of_fire
-@export var return_rate := 5.0
-@export var snappiness := 10.0
 
+@export var rotation_control := 5.0
+@export var rotation_snappiness := 10.0
+@export var position_control := 20.0
+@export var position_snappiness := 25.0
+
+@onready var player : PlayerCharacter = $"../../../"
 @onready var camera := $"../"
-@onready var base_camera_position = camera.position
-@onready var base_position = position
-@onready var target_position = base_position
+@onready var camera_origin = camera.position
+@onready var origin = position
 
 @onready var shot_timer := $ShotCooldownTimer
 @onready var muscle_twitch_timer : Timer = $"../../MuscleTwitchTimer"
 @onready var gun_sounds = $GunSounds
 @onready var ray_cast := $RayCast3D
-#@onready var muzzel_flash = $MuzzelFlash
-#@onready var timer_flash := $FlashTimer
 
 @onready var tween_bolt = create_tween()
 @onready var tween_sight_in = create_tween()
 @onready var tween_sight_out = create_tween()
 
 func _ready():
+	base_position = origin
 	tween_bolt.stop()
 	tween_sight_in.stop()
 	tween_sight_out.stop()
@@ -60,25 +67,35 @@ func _ready():
 
 
 func _process(delta):
-	target_rotation = lerp(target_rotation, base_rotation, return_rate*delta)
-	set_rotation(lerp(rotation, target_rotation,snappiness*delta))
-	set_position(lerp(position, target_position + target_bob_position, snappiness*delta))
+	target_rotation = lerp(target_rotation, base_rotation, rotation_control*delta)
+	target_position = lerp(target_position, base_position, position_control*delta)
+	set_rotation_degrees(lerp(rotation_degrees, target_rotation + target_bob_rotation,rotation_snappiness*delta))
+	set_position(lerp(position, target_position + target_bob_position, position_snappiness*delta))
 
-
+# TODO Add gun charactaristic exports
 func _fire():
+	if player.is_sprinting and not is_sight_in:
+		sight_in()
 	print(ray_cast.get_collider())
-#	muzzel_flash.mesh.material.set_shader_parameter("uv1_offset", Vector3(randf(),0.0,0.0))
-#	muzzel_flash.visible = true
-#	timer_flash.start(0.02)
 	$MuzzelFlash.emitting = true;
 	tween_bolt.play()
 	gun_sounds.pitch_scale = randf_range(0.9,1.2)
 	gun_sounds.play()
 	
-	if is_sight_in:
-		target_rotation += Vector3(deg_to_rad(randf_range(1,2)), deg_to_rad(randf_range(-1,1)), deg_to_rad(randf_range(-3,3)))
+	# Z Recoil
+	if player.is_sprinting:
+		target_position += Vector3(0,0,0.07)
 	else:
-		target_rotation += Vector3(deg_to_rad(randf_range(2,3)), deg_to_rad(randf_range(-2,2)), deg_to_rad(randf_range(-5,5)))
+		target_position += Vector3(0,0,0.05)
+	
+	# Rotational recoil
+	if is_sight_in:
+		if player.is_sprinting:
+			target_rotation += Vector3(randf_range(3,5), randf_range(-4,4), randf_range(-7,7))
+		else:
+			target_rotation += Vector3(randf_range(1,2), randf_range(-1,1), randf_range(-4,4))
+	else:
+		target_rotation += Vector3(randf_range(2,3), randf_range(-2,2), randf_range(-5,5))
 
 
 func look_rotate(relative):
@@ -89,17 +106,22 @@ func look_rotate(relative):
 
 
 func sight_in():
-	if not $"../../../".sprint:
-		is_sight_in = true
+	is_sight_in = true
+	if player.is_sprinting:
+		base_position = Vector3(0.025, -0.17, origin.z)
+		base_rotation = Vector3(0.1,-2.8,18.3)
+	else:
+		base_position = Vector3(0,-0.076,origin.z)
 		base_rotation = Vector3.ZERO
-		target_position = Vector3(0,-0.076,base_position.z)
 
 
 func sight_out():
 	is_sight_in = false
-	if $"../../../".sprint:
-		base_rotation = Vector3(deg_to_rad(-11), deg_to_rad(12.5), 0)
-	target_position = base_position
+	if player.is_sprinting:
+		base_rotation = Vector3(-11, 12.5, 0)
+	else:
+		base_rotation = Vector3.ZERO
+	base_position = origin
 
 
 # Shot timer
@@ -109,11 +131,7 @@ func _on_timer_timeout():
 	if shooting:
 		shot_timer.start(shot_cooldown)
 
-
+# TODO Maybe make passive gun sway better
 func _on_muscle_twitch_timer_timeout():
-	target_rotation += Vector3(randf_range(-0.002,0.002), randf_range(-0.002,0.002), randf_range(-0.002,0.002))
+	target_rotation += Vector3(randf_range(-0.02,0.02), randf_range(-0.02,0.02), randf_range(-0.02,0.02))
 	muscle_twitch_timer.start(randf_range(0.05,0.1))
-
-
-#func _on_flash_timer_timeout():
-#	muzzel_flash.visible = false
