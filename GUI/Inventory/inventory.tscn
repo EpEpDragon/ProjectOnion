@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcrynkbfonyls"]
+[gd_scene load_steps=3 format=3 uid="uid://dcrynkbfonyls"]
 
 [ext_resource type="PackedScene" uid="uid://cm8cycvgm7vpl" path="res://GUI/Inventory/Bag.tscn" id="1_mx8f6"]
+[ext_resource type="Script" path="res://GUI/Inventory/Inventory.gd" id="1_nipup"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,60 +10,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nipup")
 
 [node name="Control" parent="." instance=ExtResource("1_mx8f6")]
 layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 772.0
-offset_bottom = 965.0
+offset_right = 747.0
+offset_bottom = 1029.0
 
-[node name="HEAD" type="Panel" parent="Panel"]
+[node name="BackpackPanel" type="Panel" parent="Panel"]
 layout_mode = 0
-offset_left = 447.0
-offset_top = 41.0
-offset_right = 571.0
-offset_bottom = 180.0
+offset_left = 561.0
+offset_top = 236.0
+offset_right = 721.0
+offset_bottom = 396.0
 
-[node name="Panel2" type="Panel" parent="Panel"]
+[node name="Label" type="Label" parent="Panel/BackpackPanel"]
 layout_mode = 1
-offset_left = 275.0
-offset_top = 200.0
-offset_right = 361.0
-offset_bottom = 570.0
-
-[node name="SLING" type="Panel" parent="Panel"]
-layout_mode = 1
-offset_left = 45.0
-offset_top = 76.0
-offset_right = 241.0
-offset_bottom = 646.0
-
-[node name="BODY" type="Panel" parent="Panel"]
-layout_mode = 1
-offset_left = 390.0
-offset_top = 198.0
-offset_right = 625.0
-offset_bottom = 571.0
-
-[node name="Panel5" type="Panel" parent="Panel"]
-layout_mode = 1
-offset_left = 663.0
-offset_top = 204.0
-offset_right = 736.0
-offset_bottom = 548.0
-
-[node name="Panel6" type="Panel" parent="Panel"]
-layout_mode = 1
-offset_left = 364.0
-offset_top = 598.0
-offset_right = 488.0
-offset_bottom = 899.0
-
-[node name="Panel7" type="Panel" parent="Panel"]
-layout_mode = 1
-offset_left = 520.0
-offset_top = 596.0
-offset_right = 644.0
-offset_bottom = 942.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Backpack"

@@ -1,21 +1,27 @@
 extends Control
 class_name InventoryItem
 var  inventory_item = preload("res://GUI/Inventory/InventoryItem.tscn")
-
+# Set on add
 var drag_preview
 var bag
+
+var id := "error"
+
 
 var is_dragging = false:
 	set(dragging): # Disable/Enable mouse input on original item based on dragging
 		is_dragging = dragging
 		if is_dragging:
+			print(self)
 			visible = false
 			for item in bag.items:
-				item.mouse_filter = MOUSE_FILTER_IGNORE
+				if is_instance_valid(item):
+					item.mouse_filter = MOUSE_FILTER_IGNORE
 		else:
 			visible = true
 			for item in bag.items:
-				item.mouse_filter = MOUSE_FILTER_STOP
+				if is_instance_valid(item):
+					item.mouse_filter = MOUSE_FILTER_STOP
 
 var dimentions := Vector2i(1,1):
 	set(dim_new):
