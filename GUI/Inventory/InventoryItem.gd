@@ -3,17 +3,18 @@ class_name InventoryItem
 var  inventory_item = preload("res://GUI/Inventory/InventoryItem.tscn")
 
 var drag_preview
+var bag
 
 var is_dragging = false:
 	set(dragging): # Disable/Enable mouse input on original item based on dragging
 		is_dragging = dragging
 		if is_dragging:
 			visible = false
-			for item in Inventory.items:
+			for item in bag.items:
 				item.mouse_filter = MOUSE_FILTER_IGNORE
 		else:
 			visible = true
-			for item in Inventory.items:
+			for item in bag.items:
 				item.mouse_filter = MOUSE_FILTER_STOP
 
 var dimentions := Vector2i(1,1):
@@ -21,24 +22,24 @@ var dimentions := Vector2i(1,1):
 #		clear_occupation_flags()
 		dimentions = dim_new
 #		set_occupation_flags()
-		Inventory.clear_drop_preview()
-		size = dimentions*Inventory.CELL_SIZE - Vector2i(6,6)
+		bag.clear_drop_preview()
+		size = dimentions*bag.CELL_SIZE - Vector2i(6,6)
 
 var grid_position := Vector2i(0,0):
 	set(pos_new):
 #		clear_occupation_flags()
 		grid_position = pos_new
 #		set_occupation_flags()
-		Inventory.clear_drop_preview()
-		position = (grid_position-Vector2i(0,Inventory.GRID_H)) * Inventory.CELL_SIZE + Vector2i(6,-4)
+		bag.clear_drop_preview()
+		position = (grid_position-Vector2i(0,bag.GRID_H)) * bag.CELL_SIZE + Vector2i(6,-4)
 
 var is_rotated := false:
 	set(rotated):
 		is_rotated = rotated
 		if is_rotated:
-			drag_preview.size = Vector2i(dimentions.y, dimentions.x)*Inventory.CELL_SIZE - Vector2i(6,6)
+			drag_preview.size = Vector2i(dimentions.y, dimentions.x)*bag.CELL_SIZE - Vector2i(6,6)
 		else:
-			drag_preview.size = dimentions*Inventory.CELL_SIZE - Vector2i(6,6)
+			drag_preview.size = dimentions*bag.CELL_SIZE - Vector2i(6,6)
 		
 		# HACK To force an update on _can_drop_data in relevant grid slot
 		# I don't think theres a force update method.
@@ -59,7 +60,7 @@ func _input(event):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				is_dragging = false
-				Inventory.clear_drop_preview()
+				bag.clear_drop_preview()
 		elif event.is_action_pressed("interact"):
 			is_rotated = not is_rotated
 			print(is_rotated)
@@ -68,10 +69,10 @@ func _input(event):
 func clear_occupation_flags():
 	for x in dimentions.x:
 		for y in dimentions.y:
-			Inventory.grid.get_child(grid_position.x + grid_position.y*Inventory.GRID_W + x + y*Inventory.GRID_W).is_occupied = false
+			bag.grid.get_child(grid_position.x + grid_position.y*bag.GRID_W + x + y*bag.GRID_W).is_occupied = false
 
 
 func set_occupation_flags():
 	for x in dimentions.x:
 		for y in dimentions.y:
-			Inventory.grid.get_child(grid_position.x + grid_position.y*Inventory.GRID_W + x + y*Inventory.GRID_W).is_occupied = true
+			bag.grid.get_child(grid_position.x + grid_position.y*bag.GRID_W + x + y*bag.GRID_W).is_occupied = true

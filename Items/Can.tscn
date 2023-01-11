@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ovh2cv118k4"]
+
+[ext_resource type="Texture2D" uid="uid://bgsnwd6f641x5" path="res://addons/kenney_prototype_textures/green/texture_11.png" id="1_w3fba"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_638v0"]
+albedo_texture = ExtResource("1_w3fba")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6g0qt"]
+material = SubResource("StandardMaterial3D_638v0")
+radius = 0.1
+height = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uyyd3"]
+radius = 0.1
+height = 0.4
+
+[node name="RigidBody3D" type="RigidBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_6g0qt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_uyyd3")

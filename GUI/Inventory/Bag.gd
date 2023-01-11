@@ -1,4 +1,5 @@
 extends Control
+class_name Bag
 
 const CELL_SIZE = 80
 const GRID_W = 10
@@ -20,7 +21,6 @@ func _set(property, value):
 
 
 func _ready():
-	visible = false
 	add_item(Vector2i(0,0), Vector2i(3,2))
 	add_item(Vector2i(4,3), Vector2i(1,2))
 	add_item(Vector2i(1,2), Vector2i(1,1))
@@ -28,6 +28,7 @@ func _ready():
 
 func add_item(grid_position := Vector2i.ZERO, dimentions := Vector2i.ONE) -> void:
 	var instance = item.instantiate()
+	instance.bag = self
 	instance.grid_position = grid_position
 	instance.dimentions = dimentions
 	instance.set_occupation_flags()
