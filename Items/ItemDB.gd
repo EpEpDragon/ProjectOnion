@@ -2,11 +2,17 @@ extends Node
 const PATH = "res://Items/"
 
 const ITEMS = {
-	"canister" : {
+	"Canister" : {
 		"asset" : preload(PATH + "Canister.tscn"),
+		"dimentions" : Vector2i(1,2)
+	},
+	"Box" : {
+		"asset" : preload(PATH + "Box.tscn"),
+		"dimentions" : Vector2i(3,3)
 	},
 	"error" : {
 		"asset" : preload(PATH + "Box.tscn"),
+		"dimentions" : Vector2i(1,1)
 	}
 }
 

@@ -21,16 +21,18 @@ func _set(property, value):
 
 
 func _ready():
-	add_item(Vector2i(0,0), Vector2i(3,2))
-	add_item(Vector2i(4,3), Vector2i(1,2))
-	add_item(Vector2i(1,2), Vector2i(1,1))
+	add_item("Canister", Vector2i(0,0))
+	add_item("Canister", Vector2i(1,0))
+	add_item("Canister", Vector2i(3,1))
+	add_item("Box", Vector2i(4,0))
 
 
-func add_item(grid_position := Vector2i.ZERO, dimentions := Vector2i.ONE) -> void:
+func add_item(id : String, grid_position := Vector2i.ZERO) -> void:
 	var instance = item.instantiate()
+	instance.id = id
 	instance.bag = self
+	instance.dimentions = ItemDb.ITEMS[id].dimentions
 	instance.grid_position = grid_position
-	instance.dimentions = dimentions
 	instance.set_occupation_flags()
 	items.append(instance)
 	grid_start.add_child(instance)

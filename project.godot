@@ -34,6 +34,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://GUI/Inventory/Slot.gd"
 }, {
+"base": "Node3D",
+"class": &"Item",
+"language": &"GDScript",
+"path": "res://Items/Item.gd"
+}, {
 "base": "CharacterBody3D",
 "class": &"PlayerCharacter",
 "language": &"GDScript",
@@ -45,6 +50,7 @@ _global_script_class_icons={
 "Gun": "",
 "InventoryItem": "",
 "InventorySlot": "",
+"Item": "",
 "PlayerCharacter": ""
 }
 
@@ -68,6 +74,7 @@ ItemDb="*res://Items/ItemDB.gd"
 EscMenu="*res://GUI/EscapeMenu/esc_menu.tscn"
 InputHandler="*res://InputHandler.gd"
 Inventory="*res://GUI/Inventory/Inventory.tscn"
+HUD="*res://GUI/HUD/HUD.tscn"
 
 [display]
 

@@ -11,6 +11,7 @@ const LOOK_SENS = 0.2
 
 @onready var PHYSICS_FPS = Engine.physics_ticks_per_second
 @onready var camera : Camera3D = $Body/Camera
+
 @onready var body : MeshInstance3D = $Body
 @onready var base_camera_position = camera.position
 @onready var gun : Gun = $Body/Camera/Gun
@@ -59,6 +60,7 @@ func _unhandled_input(event):
 		gun.sight_in()
 	elif event.is_action_released("fire_secondary"):
 		gun.sight_out()
+
 
 func _physics_process(delta):
 	_character_movement(delta)

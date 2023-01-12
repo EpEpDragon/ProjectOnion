@@ -76,10 +76,12 @@ func _process(delta):
 func _fire():
 	if player.is_sprinting and not is_sight_in:
 		sight_in()
-#	print(ray_cast.get_collider())
+	
+	ray_cast.force_raycast_update()
 	if ray_cast.get_collider() is RigidBody3D:
 		print(ray_cast.get_collider())
 		ray_cast.get_collider().apply_impulse((ray_cast.get_collision_point()-ray_cast.global_position).normalized()*0.5, ray_cast.get_collision_point()-ray_cast.get_collider().global_position)
+	
 	$MuzzelFlash.emitting = true;
 	tween_bolt.play()
 	gun_sounds.pitch_scale = randf_range(0.9,1.2)

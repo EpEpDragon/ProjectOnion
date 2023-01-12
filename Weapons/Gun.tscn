@@ -149,11 +149,12 @@ skeleton = NodePath("../..")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0241876, -0.741748)
-visible = false
+enabled = false
 target_position = Vector3(0, -100, 0)
 
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.024, -50.7)
+visible = false
 extents = Vector3(0.02, 50, 0.02)
 texture_emission = ExtResource("3_jtluq")
 emission_energy = 128.0

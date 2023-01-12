@@ -1,21 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5nl6u18fxims"]
+[gd_scene load_steps=6 format=3 uid="uid://b5nl6u18fxims"]
 
+[ext_resource type="Script" path="res://Items/Item.gd" id="1_alkql"]
 [ext_resource type="Texture2D" uid="uid://ds5oegi770kl6" path="res://addons/kenney_prototype_textures/purple/texture_09.png" id="1_sfy8s"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ap1f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yxat"]
 albedo_texture = ExtResource("1_sfy8s")
 
-[sub_resource type="BoxMesh" id="BoxMesh_nu4b2"]
-material = SubResource("StandardMaterial3D_8ap1f")
+[sub_resource type="BoxMesh" id="BoxMesh_sikcc"]
+material = SubResource("StandardMaterial3D_8yxat")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bobx8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_c1u3x"]
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[node name="Item" type="Node3D"]
+script = ExtResource("1_alkql")
+type = "Box"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_nu4b2")
+mesh = SubResource("BoxMesh_sikcc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_bobx8")
+shape = SubResource("BoxShape3D_c1u3x")

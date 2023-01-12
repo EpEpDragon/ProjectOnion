@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nipup")
 
-[node name="Control" parent="." instance=ExtResource("1_mx8f6")]
+[node name="Bag" parent="." instance=ExtResource("1_mx8f6")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

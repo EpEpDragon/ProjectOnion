@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://vfep1hrbvdrv"]
+[gd_scene load_steps=11 format=3 uid="uid://vfep1hrbvdrv"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qhg3m"]
 [ext_resource type="Script" path="res://Player/PlayerBody.gd" id="2_arowe"]
 [ext_resource type="AudioStream" uid="uid://1cjn5k1erxeq" path="res://Audio/Footstep-01.wav" id="4_5dy3a"]
 [ext_resource type="Script" path="res://Player/AudioFootsteps.gd" id="4_5xkh7"]
+[ext_resource type="Script" path="res://Player/RayCast3D.gd" id="4_eauxp"]
 [ext_resource type="AudioStream" uid="uid://bhxh4hviibe86" path="res://Audio/Footstep-02.wav" id="5_bviww"]
 [ext_resource type="PackedScene" uid="uid://bhlg1ko7p0n04" path="res://Weapons/Gun.tscn" id="7_13llc"]
 [ext_resource type="AudioStream" uid="uid://dc7vpm6olvh8b" path="res://Audio/Footstep-04.wav" id="7_coepo"]
@@ -33,6 +34,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12684, -0.172137, -0.020653
 
 [node name="PositionGun" type="Node3D" parent="Body/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100634, -0.121541, -0.0198314)
+
+[node name="RayCast3D" type="RayCast3D" parent="Body/Camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -1.5, 0)
+script = ExtResource("4_eauxp")
 
 [node name="AudioFootsteps" type="AudioStreamPlayer3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.664)
