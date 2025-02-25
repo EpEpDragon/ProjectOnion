@@ -13,50 +13,30 @@ grow_vertical = 2
 script = ExtResource("1_6d5ug")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 588.0
 offset_bottom = 289.0
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
-anchors_preset = -1
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 578.0
-offset_bottom = 279.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 565.0
-offset_bottom = 266.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 552.0
-offset_bottom = 253.0
+layout_mode = 2
+current_tab = 0
 
 [node name="Video" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 31.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Fullscreen" type="CheckButton" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video"]
-offset_right = 542.0
-offset_bottom = 31.0
+layout_mode = 2
 text = "Fullscreen"
 
 [node name="ResolutionScale" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video" instance=ExtResource("2_2i38x")]
-anchors_preset = 0
-anchor_right = 0.0
-offset_top = 35.0
-offset_right = 542.0
-offset_bottom = 65.0
-grow_horizontal = 1
+layout_mode = 2
 text = "Resolution Scale"
 initial_value = 100.0
 step = 5.0
@@ -64,46 +44,29 @@ min_value = 10.0
 max_value = 200.0
 
 [node name="FOV" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video" instance=ExtResource("2_2i38x")]
-anchors_preset = 0
-anchor_right = 0.0
-offset_top = 69.0
-offset_right = 542.0
-offset_bottom = 99.0
-grow_horizontal = 1
+layout_mode = 2
 text = "FOV"
 initial_value = 90.0
 max_value = 180.0
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video"]
-offset_top = 103.0
-offset_right = 542.0
-offset_bottom = 107.0
+layout_mode = 2
 
 [node name="TAA" type="CheckButton" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video"]
-offset_top = 111.0
-offset_right = 542.0
-offset_bottom = 142.0
+layout_mode = 2
 button_pressed = true
 text = "TAA"
 
 [node name="SSAO" type="CheckButton" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video"]
-offset_top = 146.0
-offset_right = 542.0
-offset_bottom = 177.0
+layout_mode = 2
 button_pressed = true
 text = "SSAO"
 
 [node name="SDFGI" type="CheckButton" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video"]
-offset_top = 181.0
-offset_right = 542.0
-offset_bottom = 212.0
+layout_mode = 2
 text = "SDFGI"
 
 [node name="Keybinds" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer"]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 31.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+metadata/_tab_index = 1

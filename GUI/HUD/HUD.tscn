@@ -13,7 +13,7 @@ mouse_filter = 2
 script = ExtResource("1_ith6f")
 
 [node name="LabelLookInfo" type="Label" parent="."]
-anchors_preset = 8
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

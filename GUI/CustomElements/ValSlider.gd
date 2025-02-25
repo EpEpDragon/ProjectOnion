@@ -1,5 +1,5 @@
-extends Control
 @tool
+extends Control
 
 @export var text : String = "Label" : 
 	set(value):

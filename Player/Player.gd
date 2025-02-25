@@ -44,7 +44,6 @@ func _unhandled_input(event):
 #		if !free_cam:
 		camera.rotation.x = clamp(camera.rotation.x + -event.relative.y*0.01*LOOK_SENS, -PI/2, PI/2)
 		rotation.y += -event.relative.x*0.01*LOOK_SENS
-		gun.look_rotate(event.relative)
 #		else:
 #			camera.rotation.x = clamp(camera.rotation.x + -event.relative.y*0.01*LOOK_SENS, -PI/2, PI/2)
 #			camera.rotation.y += -event.relative.x*0.01*LOOK_SENS

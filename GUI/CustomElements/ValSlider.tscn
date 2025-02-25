@@ -12,42 +12,27 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 2
 script = ExtResource("1_tm4as")
-initial_value = 0.0
-step = 1.0
-min_value = 0.0
-max_value = 100.0
 
 [node name="HBox" type="HBoxContainer" parent="."]
-offset_left = 6.0
-offset_top = 2.0
-offset_right = 1913.0
-offset_bottom = 44.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="HBox"]
-offset_top = 8.0
-offset_right = 634.0
-offset_bottom = 34.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 text = "Label"
 
 [node name="HBox2" type="HBoxContainer" parent="HBox"]
-offset_left = 638.0
-offset_right = 1907.0
-offset_bottom = 42.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ValueLabel" type="Label" parent="HBox/HBox2"]
-offset_top = 8.0
-offset_right = 210.0
-offset_bottom = 34.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 text = "0"
 
 [node name="Slider" type="HSlider" parent="HBox/HBox2"]
-offset_left = 214.0
-offset_right = 1269.0
-offset_bottom = 42.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1

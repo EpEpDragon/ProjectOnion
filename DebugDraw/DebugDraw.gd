@@ -38,7 +38,7 @@ class PointCloud extends MeshInstance3D:
 		mat.point_size = p_size
 		mat.albedo_color = color
 		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		cast_shadow = false
+		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	
 	func clear() : cloud.clear()
 	func add_point(p): cloud.append(p)
@@ -64,9 +64,9 @@ class Spheres extends MeshInstance3D:
 		_radius = radius
 		mat.albedo_color = color
 		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		mat.set_transparency(true)
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		mat.set_cull_mode(BaseMaterial3D.CULL_DISABLED)
-		cast_shadow = false
+		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	
 	func clear() : positions.clear()
 	func add_sphere(p): positions.append(p)
@@ -88,7 +88,7 @@ class Lines extends MeshInstance3D:
 	func _init(color):
 		mat.albedo_color = color
 		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		cast_shadow = false
+		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	
 	func clear(): 
 		points.clear()
@@ -116,7 +116,7 @@ class LineSegment extends MeshInstance3D:
 	
 	func _init(color):
 		mat.albedo_color = color
-		cast_shadow = false
+		cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	
 	func clear(): 
@@ -139,7 +139,6 @@ class LineSegment extends MeshInstance3D:
 			set_mesh(mesh_imm)
 		else:
 			set_mesh(ImmediateMesh.new())
-
 
 
 class D_Label extends Label:

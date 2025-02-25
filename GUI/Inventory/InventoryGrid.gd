@@ -1,5 +1,6 @@
-extends GridContainer
 @tool
+extends GridContainer
+
 @onready var bag = $"../../../../../../"
 func _ready():
 	# Populate inventroy with appropriate amount of grid slots

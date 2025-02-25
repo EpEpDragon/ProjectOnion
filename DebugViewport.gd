@@ -13,12 +13,12 @@ extends Control
 @onready var pan_correction = $"../VBoxContainer/PanCorrection"
 
 func _ready():
-	volume_label.set_self_modulate(Color.BLACK)
-	room_size_label.set_self_modulate(Color.BLACK)
-	room_integrity_label.set_self_modulate(Color.BLACK)
-	wet_label.set_self_modulate(Color.BLACK)
-	pan_strength.set_self_modulate(Color.BLACK)
-	pan_correction.set_self_modulate(Color.BLACK)
+	volume_label.set_self_modulate(Color.GREEN)
+	room_size_label.set_self_modulate(Color.GREEN)
+	room_integrity_label.set_self_modulate(Color.GREEN)
+	wet_label.set_self_modulate(Color.GREEN)
+	pan_strength.set_self_modulate(Color.GREEN)
+	pan_correction.set_self_modulate(Color.GREEN)
 
 func _process(_delta):
 	camera.position = player.position
