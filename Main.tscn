@@ -127,7 +127,7 @@ use_occlusion = true
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_3lej4")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.58012, -5.5)
+transform = Transform3D(-0.369487, 0, 0.929236, 0, 1, 0, -0.929236, 0, -0.369487, 15.7311, 0.51617, -5.5)
 
 [node name="ObjectMaskViewport" type="SubViewport" parent="."]
 use_hdr_2d = true
