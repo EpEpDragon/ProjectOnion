@@ -30,8 +30,10 @@ void main() {
 	// Read buffers.
 	vec4 color = imageLoad(color_image, uv);
 	vec2 coord = imageLoad(coord_mask, uv).xy*params.scale;
-	coord.x = max(coord.x, uv.x*params.scale);
-	coord.y = max(coord.y, uv.y*params.scale);
+	// Exception for when a object has no position mask, eg. the background.
+	if (coord.x == 0 && coord.y == 0) {
+		coord = uv*params.scale;
+	}
 
 	// Desaturate.
 	float gray = color.r * 0.2125 + color.g * 0.7154 + color.b * 0.0721;

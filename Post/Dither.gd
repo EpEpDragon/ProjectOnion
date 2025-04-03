@@ -4,7 +4,7 @@ class_name PostProcessDither
 @export_range(0.5,4,0.1) var threshold_map_scale : float = 1.0
 var mask_viewport : SubViewport
 
-var n : int = 3
+var n : int = 2
 var _threshold_map : PackedFloat32Array
 var _map_dimention : int
 
