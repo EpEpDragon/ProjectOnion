@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mfs7mt8oxgu6"]
 
-[ext_resource type="Script" path="res://GUI/EscapeMenu/esc_menu.gd" id="1_6d5ug"]
+[ext_resource type="Script" uid="uid://c1dg1q8drrwfm" path="res://GUI/EscapeMenu/esc_menu.gd" id="1_6d5ug"]
 [ext_resource type="PackedScene" uid="uid://dcvj5rtr5053o" path="res://GUI/CustomElements/ValSlider.tscn" id="2_2i38x"]
 
 [node name="Control" type="Control"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5nl6u18fxims"]
 
-[ext_resource type="Script" path="res://Items/Item.gd" id="1_alkql"]
+[ext_resource type="Script" uid="uid://cfsdxt1x180lm" path="res://Items/Item.gd" id="1_alkql"]
 [ext_resource type="Texture2D" uid="uid://ds5oegi770kl6" path="res://addons/kenney_prototype_textures/purple/texture_09.png" id="1_sfy8s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yxat"]

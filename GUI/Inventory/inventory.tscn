@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcrynkbfonyls"]
 
 [ext_resource type="PackedScene" uid="uid://cm8cycvgm7vpl" path="res://GUI/Inventory/Bag.tscn" id="1_mx8f6"]
-[ext_resource type="Script" path="res://GUI/Inventory/Inventory.gd" id="1_nipup"]
+[ext_resource type="Script" uid="uid://dh5y7wi6toeq6" path="res://GUI/Inventory/Inventory.gd" id="1_nipup"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dn3gxv6lewhny"]
 
-[ext_resource type="Script" path="res://Audio/AudioHandler.gd" id="1_l6o47"]
+[ext_resource type="Script" uid="uid://dtknet0q0o2wm" path="res://Audio/AudioHandler.gd" id="1_l6o47"]
 
 [sub_resource type="Curve" id="Curve_j25xg"]
 _data = [Vector2(0, 0.990909), 0.0, -0.727273, 0, 1, Vector2(1, 0.263636), -2.59495, nan, 0, 1, Vector2(1, 0.263636), -2.59495, -1.13418, 0, 0]

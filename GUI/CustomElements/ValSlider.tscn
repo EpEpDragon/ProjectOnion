@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcvj5rtr5053o"]
 
-[ext_resource type="Script" path="res://GUI/CustomElements/ValSlider.gd" id="1_tm4as"]
+[ext_resource type="Script" uid="uid://6ulhblir3pwb" path="res://GUI/CustomElements/ValSlider.gd" id="1_tm4as"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 10

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cm8cycvgm7vpl"]
 
 [ext_resource type="Theme" uid="uid://dbtrrh7uj27du" path="res://GUI/MainTheme.tres" id="1_jsu6i"]
-[ext_resource type="Script" path="res://GUI/Inventory/Bag.gd" id="1_umgco"]
-[ext_resource type="Script" path="res://GUI/Inventory/InventoryGrid.gd" id="3_uam12"]
+[ext_resource type="Script" uid="uid://doy1176h6s0xc" path="res://GUI/Inventory/Bag.gd" id="1_umgco"]
+[ext_resource type="Script" uid="uid://bc8hprbibigwv" path="res://GUI/Inventory/InventoryGrid.gd" id="3_uam12"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2pis6s6612d1"]
 
 [ext_resource type="Texture2D" uid="uid://bqy8mwinyjew2" path="res://icon.svg" id="1_a31y5"]
-[ext_resource type="Script" path="res://GUI/Inventory/InventoryItem.gd" id="1_n5wkj"]
+[ext_resource type="Script" uid="uid://cdovac2m4fstr" path="res://GUI/Inventory/InventoryItem.gd" id="1_n5wkj"]
 
 [node name="Panel" type="Panel"]
 script = ExtResource("1_n5wkj")

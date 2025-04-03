@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5ovh2cv118k4"]
 
 [ext_resource type="Texture2D" uid="uid://bgsnwd6f641x5" path="res://addons/kenney_prototype_textures/green/texture_11.png" id="1_w3fba"]
-[ext_resource type="Script" path="res://Items/Item.gd" id="1_wu572"]
+[ext_resource type="Script" uid="uid://cfsdxt1x180lm" path="res://Items/Item.gd" id="1_wu572"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udacg"]
 albedo_texture = ExtResource("1_w3fba")
