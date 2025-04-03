@@ -22,7 +22,7 @@ effect_callback_type = 4
 needs_motion_vectors = false
 needs_normal_roughness = false
 script = ExtResource("3_8nmo3")
-threshold_map_scale = 2.0
+threshold_map_scale = 4.0
 
 [sub_resource type="Compositor" id="Compositor_sffph"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_o3u8w")])

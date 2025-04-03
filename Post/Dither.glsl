@@ -43,7 +43,6 @@ void main() {
 	// color.g = round(color.g + threshold);
 	// color.b = round(color.b + threshold);
 	gray = round(gray + threshold);
-	// color.rgb = vec3(mask.xy,0);
 	color.rgb = vec3(gray);
 
 	// Write back to our color buffer.

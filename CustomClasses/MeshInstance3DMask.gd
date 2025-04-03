@@ -31,12 +31,7 @@ class MeshInstance3DMask extends MeshInstance3D:
 		# Set correct visibility maske for shader
 		set_layer_mask_value(20, true)
 		
-	#var i = 0
 	func _process(delta):
-		#i+=1
 		# Send screen position to shader every frame
 		var pos = player.camera.unproject_position(global_position)
-		#if i%10 == 0:
-			#print(get_parent().name,pos)
-			#i = 0
 		material.set_shader_parameter("object_screen_position", pos)
