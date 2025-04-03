@@ -64,6 +64,7 @@ text = "SSAO"
 
 [node name="SDFGI" type="CheckButton" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer/Video"]
 layout_mode = 2
+button_pressed = true
 text = "SDFGI"
 
 [node name="Keybinds" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/TabContainer"]
